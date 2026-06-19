@@ -1,0 +1,192 @@
+diff --git a/node_modules/next/dist/compiled/@vercel/og/index.edge.js b/node_modules/next/dist/compiled/@vercel/og/index.edge.js
+index 629fd61..ffab4e3 100644
+--- a/node_modules/next/dist/compiled/@vercel/og/index.edge.js
++++ b/node_modules/next/dist/compiled/@vercel/og/index.edge.js
+@@ -9913,6 +9913,39 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
+   }
+   return null;
+ }
++function contextSubstitutionFormat3(contextParams, subtable) {
++  if (contextParams.context.length < subtable.coverages.length) {
++    return [];
++  }
++  for (var i = 0; i < subtable.coverages.length; i++) {
++    var coverage = subtable.coverages[i];
++    var contextCopy = new ContextParams(contextParams.context, contextParams.index + i);
++    var glyphIndex = contextCopy.current;
++    glyphIndex = Array.isArray(glyphIndex) ? glyphIndex[0] : glyphIndex;
++    if (lookupCoverage(glyphIndex, coverage) === -1) {
++      return [];
++    }
++  }
++  var substitutions = [];
++  for (var i = 0; i < subtable.lookupRecords.length; i++) {
++    var lookupRecord = subtable.lookupRecords[i];
++    var lookupTable = this.getLookupByIndex(lookupRecord.lookupListIndex);
++    if (!lookupTable) continue;
++    for (var s = 0; s < lookupTable.subtables.length; s++) {
++      var subtable$1 = lookupTable.subtables[s];
++      var lookup = this.getLookupMethod(lookupTable, subtable$1);
++      var substitutionType = this.getSubstitutionType(lookupTable, subtable$1);
++      if (substitutionType === "12") {
++        var glyphIndex = contextParams.get(lookupRecord.sequenceIndex);
++        var substitution = lookup(glyphIndex);
++        if (substitution) {
++          substitutions.push(substitution);
++        }
++      }
++    }
++  }
++  return substitutions;
++}
+ function decompositionSubstitutionFormat1(glyphIndex, subtable) {
+   var substituteIndex = lookupCoverage(glyphIndex, subtable.coverage);
+   if (substituteIndex === -1) {
+@@ -10007,6 +10040,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
+           [glyphIndex, subtable]
+         );
+       };
++    case "53":
++      return function(contextParams) {
++        return contextSubstitutionFormat3.apply(
++          this$1,
++          [contextParams, subtable]
++        );
++      };
+     case "63":
+       return function(contextParams) {
+         return chainingSubstitutionFormat3.apply(
+@@ -10077,6 +10117,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
+             }));
+           }
+           break;
++        case "53":
++          substitution = lookup(contextParams);
++          if (Array.isArray(substitution) && substitution.length) {
++            substitutions.splice(currentIndex, 1, new SubstitutionAction({
++              id: 53,
++              tag: query.tag,
++              substitution
++            }));
++          }
++          break;
+         case "63":
+           substitution = lookup(contextParams);
+           if (Array.isArray(substitution) && substitution.length) {
+@@ -10222,6 +10272,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
+ function singleSubstitutionFormat2$1(action, tokens, index) {
+   tokens[index].setState(action.tag, action.substitution);
+ }
++function contextSubstitutionFormat3$1(action, tokens, index) {
++  action.substitution.forEach(function(subst, offset) {
++    var token = tokens[index + offset];
++    token.setState(action.tag, subst);
++  });
++}
+ function chainingSubstitutionFormat3$1(action, tokens, index) {
+   action.substitution.forEach(function(subst, offset) {
+     var token = tokens[index + offset];
+@@ -10240,6 +10296,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
+ var SUBSTITUTIONS = {
+   11: singleSubstitutionFormat1$1,
+   12: singleSubstitutionFormat2$1,
++  53: contextSubstitutionFormat3$1,
+   63: chainingSubstitutionFormat3$1,
+   41: ligatureSubstitutionFormat1$1
+ };
+diff --git a/node_modules/next/dist/compiled/@vercel/og/index.node.js b/node_modules/next/dist/compiled/@vercel/og/index.node.js
+index 416de7e..04d42cf 100644
+--- a/node_modules/next/dist/compiled/@vercel/og/index.node.js
++++ b/node_modules/next/dist/compiled/@vercel/og/index.node.js
+@@ -9913,6 +9913,39 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
+   }
+   return null;
+ }
++function contextSubstitutionFormat3(contextParams, subtable) {
++  if (contextParams.context.length < subtable.coverages.length) {
++    return [];
++  }
++  for (var i = 0; i < subtable.coverages.length; i++) {
++    var coverage = subtable.coverages[i];
++    var contextCopy = new ContextParams(contextParams.context, contextParams.index + i);
++    var glyphIndex = contextCopy.current;
++    glyphIndex = Array.isArray(glyphIndex) ? glyphIndex[0] : glyphIndex;
++    if (lookupCoverage(glyphIndex, coverage) === -1) {
++      return [];
++    }
++  }
++  var substitutions = [];
++  for (var i = 0; i < subtable.lookupRecords.length; i++) {
++    var lookupRecord = subtable.lookupRecords[i];
++    var lookupTable = this.getLookupByIndex(lookupRecord.lookupListIndex);
++    if (!lookupTable) continue;
++    for (var s = 0; s < lookupTable.subtables.length; s++) {
++      var subtable$1 = lookupTable.subtables[s];
++      var lookup = this.getLookupMethod(lookupTable, subtable$1);
++      var substitutionType = this.getSubstitutionType(lookupTable, subtable$1);
++      if (substitutionType === "12") {
++        var glyphIndex = contextParams.get(lookupRecord.sequenceIndex);
++        var substitution = lookup(glyphIndex);
++        if (substitution) {
++          substitutions.push(substitution);
++        }
++      }
++    }
++  }
++  return substitutions;
++}
+ function decompositionSubstitutionFormat1(glyphIndex, subtable) {
+   var substituteIndex = lookupCoverage(glyphIndex, subtable.coverage);
+   if (substituteIndex === -1) {
+@@ -10007,6 +10040,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
+           [glyphIndex, subtable]
+         );
+       };
++    case "53":
++      return function(contextParams) {
++        return contextSubstitutionFormat3.apply(
++          this$1,
++          [contextParams, subtable]
++        );
++      };
+     case "63":
+       return function(contextParams) {
+         return chainingSubstitutionFormat3.apply(
+@@ -10077,6 +10117,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
+             }));
+           }
+           break;
++        case "53":
++          substitution = lookup(contextParams);
++          if (Array.isArray(substitution) && substitution.length) {
++            substitutions.splice(currentIndex, 1, new SubstitutionAction({
++              id: 53,
++              tag: query.tag,
++              substitution
++            }));
++          }
++          break;
+         case "63":
+           substitution = lookup(contextParams);
+           if (Array.isArray(substitution) && substitution.length) {
+@@ -10222,6 +10272,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
+ function singleSubstitutionFormat2$1(action, tokens, index) {
+   tokens[index].setState(action.tag, action.substitution);
+ }
++function contextSubstitutionFormat3$1(action, tokens, index) {
++  action.substitution.forEach(function(subst, offset) {
++    var token = tokens[index + offset];
++    token.setState(action.tag, subst);
++  });
++}
+ function chainingSubstitutionFormat3$1(action, tokens, index) {
+   action.substitution.forEach(function(subst, offset) {
+     var token = tokens[index + offset];
+@@ -10240,6 +10296,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
+ var SUBSTITUTIONS = {
+   11: singleSubstitutionFormat1$1,
+   12: singleSubstitutionFormat2$1,
++  53: contextSubstitutionFormat3$1,
+   63: chainingSubstitutionFormat3$1,
+   41: ligatureSubstitutionFormat1$1
+ };

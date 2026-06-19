@@ -15,7 +15,7 @@ module.exports = {
             ref: "origin/main", // Branch yang mau di-pull
             repo: "git@github.com:PradhaID/quran-next.git",
             path: "/app/web/quran.pradha.id",
-            "post-deploy": "npm install && npm run build && pm2 restart quran --update-env",
+            "post-deploy": "source ~/.bashrc && npm install && npm run build && pm2 restart quran --update-env",
         }
     }
 };

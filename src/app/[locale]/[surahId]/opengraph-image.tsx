@@ -15,12 +15,12 @@ function getArabicLines(text: string, fontSize: number): string[] {
   const reshaped = ArabicShaper.convertArabic(text);
   
   // Calculate average characters per line based on font size
-  let maxChars = 68;
-  if (fontSize <= 18) maxChars = 175;
-  else if (fontSize <= 24) maxChars = 138;
-  else if (fontSize <= 32) maxChars = 106;
-  else if (fontSize <= 42) maxChars = 81;
-  else maxChars = 68;
+  let maxChars = 85;
+  if (fontSize <= 18) maxChars = 218;
+  else if (fontSize <= 24) maxChars = 172;
+  else if (fontSize <= 32) maxChars = 132;
+  else if (fontSize <= 42) maxChars = 101;
+  else maxChars = 85;
 
   const words = reshaped.split(' ');
   const lines: string[] = [];

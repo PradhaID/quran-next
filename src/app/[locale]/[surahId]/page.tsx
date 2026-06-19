@@ -31,26 +31,37 @@ export async function generateMetadata({ params }: {
     ? (surah as any).name_latin || surah.englishName
     : surah.englishName;
 
+  let title = `${name} — ${surah.number}`;
   let description = `Read Surah ${name} (${surah.number}) with translation and tajweed color coding.`;
 
-  if (translationData?.ayahs[0]?.text) {
-    const translationAyah = targetAyah
-      ? translationData.ayahs.find(a => a.numberInSurah === targetAyah.numberInSurah)
-      : translationData.ayahs[0];
+  if (ayahNum) {
+    title = `${name} — ${surah.number}:${ayahNum}`;
+    description = `Read Ayah ${ayahNum} of Surah ${name} (${surah.number}:${ayahNum}) with translation and tajweed color coding.`;
 
-    if (translationAyah) {
-      const text = translationAyah.text.replace(/<[^>]*>/g, '').substring(0, 200);
-      if (text) {
-        description = `${name} ${translationAyah.numberInSurah}: ${text}`;
+    if (translationData?.ayahs) {
+      const translationAyah = translationData.ayahs.find(
+        a => a.numberInSurah === ayahNum
+      );
+      if (translationAyah) {
+        const text = translationAyah.text.replace(/<[^>]*>/g, '').substring(0, 200);
+        if (text) {
+          description = `${name} ${surah.number}:${ayahNum}: ${text}`;
+        }
       }
     }
   }
 
   return {
-    title: `${name} — ${surah.number}`,
+    title,
     description,
-    openGraph: { description },
-    twitter: { description },
+    openGraph: {
+      title,
+      description,
+    },
+    twitter: {
+      title,
+      description,
+    },
   };
 }
 

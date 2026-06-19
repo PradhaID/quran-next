@@ -1,6 +1,9 @@
 import { ImageResponse } from 'next/og';
+// @ts-ignore
+import ArabicShaper from 'arabic-persian-reshaper/ArabicShaper';
 
 export const runtime = 'edge';
+
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
 
@@ -46,7 +49,7 @@ export default async function Image() {
             marginBottom: 12,
           }}
         >
-          القرآن
+          {ArabicShaper.convertArabic('القرآن')}
         </div>
         <div
           style={{

@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getSurah, getSurahTranslation, TOTAL_SURAHS } from '@/lib/quranApi';
+// @ts-ignore
+import ArabicShaper from 'arabic-persian-reshaper/ArabicShaper';
 
 export const runtime = 'edge';
 
@@ -127,7 +129,7 @@ export default async function Image({
             marginBottom: translationText ? 16 : 0,
           }}
         >
-          {targetAyah.text}
+          {ArabicShaper.convertArabic(targetAyah.text)}
         </div>
 
         <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: translationText ? 28 : 0 }}>

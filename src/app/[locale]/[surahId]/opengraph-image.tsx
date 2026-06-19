@@ -11,6 +11,39 @@ function toArabicNumeral(n: number): string {
   return String(n).replace(/\d/g, d => EASTERN_DIGITS[parseInt(d, 10)]);
 }
 
+function getArabicLines(text: string, fontSize: number): string[] {
+  const reshaped = ArabicShaper.convertArabic(text);
+  
+  // Calculate average characters per line based on font size
+  let maxChars = 34;
+  if (fontSize <= 18) maxChars = 90;
+  else if (fontSize <= 24) maxChars = 70;
+  else if (fontSize <= 32) maxChars = 52;
+  else if (fontSize <= 42) maxChars = 40;
+  else maxChars = 32;
+
+  const words = reshaped.split(' ');
+  const lines: string[] = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    if (currentLine.length + word.length + 1 > maxChars) {
+      if (currentLine) {
+        lines.push(currentLine);
+      }
+      currentLine = word;
+    } else {
+      currentLine = currentLine ? `${currentLine} ${word}` : word;
+    }
+  }
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  // Reverse each line to make it render RTL in LTR layout engine
+  return lines.map(line => line.split('').reverse().join(''));
+}
+
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
 
 async function loadFont(url: string): Promise<ArrayBuffer | null> {
@@ -85,6 +118,8 @@ export default async function Image({
     a => a.numberInSurah === targetAyah.numberInSurah,
   )?.text;
 
+  const arabicLines = getArabicLines(targetAyah.text, arabicFontSize);
+
   const name = locale === 'id'
     ? (surah as any).name_latin || surah.englishName
     : surah.englishName;
@@ -119,17 +154,29 @@ export default async function Image({
         <div
           style={{
             display: 'flex',
-            fontSize: arabicFontSize,
-            color: '#e0d8c8',
-            textAlign: 'center',
-            lineHeight: arabicLength > 150 ? 1.6 : 2,
-            direction: 'rtl',
-            fontFamily: 'Noto Naskh Arabic',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
             maxWidth: '90%',
             marginBottom: translationText ? 16 : 0,
           }}
         >
-          {ArabicShaper.convertArabic(targetAyah.text).split('').reverse().join('')}
+          {arabicLines.map((line, idx) => (
+            <div
+              key={idx}
+              style={{
+                display: 'flex',
+                fontSize: arabicFontSize,
+                color: '#e0d8c8',
+                textAlign: 'center',
+                lineHeight: arabicLength > 150 ? 1.6 : 2,
+                fontFamily: 'Noto Naskh Arabic',
+              }}
+            >
+              {line}
+            </div>
+          ))}
         </div>
 
         <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: translationText ? 28 : 0 }}>

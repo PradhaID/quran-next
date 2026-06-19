@@ -15,7 +15,10 @@ export async function generateMetadata({ params }: {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'HomePage' });
 
+  const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
+
   return {
+    metadataBase: new URL(BASE),
     title: {
       template: `%s | ${t('title')}`,
       default: t('title'),

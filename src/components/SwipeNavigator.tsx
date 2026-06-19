@@ -56,7 +56,7 @@ export default function SwipeNavigator({ prevHref, nextHref, children }: SwipeNa
 
   return (
     <PageTurnContext.Provider value={{ navigate }}>
-      <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+      <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ width: '100%' }}>
         <div style={animStyle}>
           {children}
         </div>

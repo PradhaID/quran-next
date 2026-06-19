@@ -1,0 +1,48 @@
+{
+  "name": "quran-next",
+  "version": "0.0.1",
+  "description": "Online Quran Digital built by NextJS",
+  "keywords": [
+    "quran",
+    "digital",
+    "learn",
+    "read",
+    "online"
+  ],
+  "homepage": "https://github.com/PradhaID/quran-next#readme",
+  "bugs": {
+    "url": "https://github.com/PradhaID/quran-next/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PradhaID/quran-next.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Aditya Y Pradhana",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "import": "node import-surahs.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "mongodb": "^7.3.0",
+    "next": "16.2.9",
+    "next-intl": "^4.13.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5"
+  }
+}

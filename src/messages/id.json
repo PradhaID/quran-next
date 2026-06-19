@@ -1,0 +1,88 @@
+{
+  "HomePage": {
+    "title": "Al-Quran Digital",
+    "description": "Baca, Pelajari & Pahami Al-Quran",
+    "searchPlaceholder": "Cari Surah...",
+    "readNow": "Baca Sekarang",
+    "surahCount": "{count} Surah",
+    "revelationType": {
+      "Meccan": "Makkiyah",
+      "Medinan": "Madaniyah"
+    },
+    "ayahs": "{count} Ayat"
+  },
+  "Navigation": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "howTo": "Cara Menggunakan",
+    "settings": "Pengaturan"
+  },
+  "PageViewer": {
+    "page": "Halaman {number}",
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "pageOf": "Halaman {current} dari {total}",
+    "startReading": "Mulai Membaca",
+    "readByPage": "Baca per Halaman",
+    "goToPage": "Pergi ke halaman"
+  },
+  "Sidebar": {
+    "translation": "Terjemahan",
+    "note": "Catatan",
+    "savedNotes": "Catatan Tersimpan",
+    "search": "Cari",
+    "navigate": "Navigasi",
+    "arabicFontSize": "Ukuran Huruf Arab",
+    "surahsOnThisPage": "Surah di Halaman Ini",
+    "tajweedGuide": "Panduan Tajwid",
+    "menu": "Menu",
+    "ruleRed": "Ghunnah",
+    "ruleRedDesc": "Sengau — ن atau م dengan shaddah",
+    "ruleGreen": "Ikhfa",
+    "ruleGreenDesc": "Samar — nun mati/tanwin sebelum huruf ikhfa",
+    "ruleBlue": "Qalqalah",
+    "ruleBlueDesc": "Mantul — ق ط ب ج د yang bersukun",
+    "ruleOrange": "Idgham bi-ghunnah",
+    "ruleOrangeDesc": "Melebur dengan sengau — nun mati/tanwin sebelum ي م و",
+    "rulePurple": "Idgham bila ghunnah",
+    "rulePurpleDesc": "Melebur tanpa sengau — nun mati/tanwin sebelum ل ر",
+    "ruleBrown": "Iqlab",
+    "ruleBrownDesc": "Mengubah — nun mati/tanwin sebelum ب"
+  },
+  "AboutPage": {
+    "title": "Tentang",
+    "description": "Al-Quran Digital adalah aplikasi baca Al-Quran modern dan mudah diakses yang dirancang untuk membantu Anda membaca, mempelajari, dan memahami Al-Quran. Dibangun dengan perhatian untuk perangkat desktop dan mobile, aplikasi ini memberikan pengalaman membaca yang bersih dan fokus dengan fitur-fitur pendukung yang powerful.",
+    "features": "Fitur-Fitur",
+    "feature1Title": "Tata Letak Mushaf per Halaman",
+    "feature1Desc": "Baca Al-Quran dalam tata letak per halaman tradisional yang menyerupai Mushaf cetak, dengan teks Arab yang ditampilkan secara inline beserta nomor ayat.",
+    "feature2Title": "Terjemahan Berdampingan",
+    "feature2Desc": "Lihat terjemahan ayat di panel samping saat Anda membaca. Cukup ketuk atau klik ayat mana pun untuk melihat artinya dalam bahasa Inggris atau Indonesia.",
+    "feature3Title": "Panduan Warna Tajwid",
+    "feature3Desc": "Pelajari pelafalan yang benar dengan aturan tajwid yang diberi kode warna. Setiap aturan disorot dengan warna berbeda untuk membantu Anda membaca dengan benar.",
+    "feature4Title": "Catatan Pribadi",
+    "feature4Desc": "Simpan catatan untuk ayat apa pun. Catatan Anda disimpan secara lokal dan dapat dilihat, diedit, atau dihapus dari panel samping kapan saja.",
+    "feature5Title": "Navigasi Keyboard",
+    "feature5Desc": "Navigasi ayat dengan cepat menggunakan tombol panah: Atas/Bawah untuk ayat sebelumnya/selanjutnya, Kiri/Kanan untuk halaman sebelumnya/selanjutnya.",
+    "feature6Title": "Dukungan Dua Bahasa",
+    "feature6Desc": "Beralih dengan mulus antara bahasa Inggris dan Indonesia untuk seluruh antarmuka, termasuk terjemahan, menu, dan navigasi.",
+    "feature7Title": "Ukuran Huruf Arab yang Dapat Disesuaikan",
+    "feature7Desc": "Sesuaikan ukuran teks Arab sesuai preferensi Anda untuk pengalaman membaca yang nyaman.",
+    "feature8Title": "Navigasi Surah & Ayat Cepat",
+    "feature8Desc": "Langsung menuju surah dan ayat mana pun menggunakan panel navigasi di panel samping."
+  },
+  "HowToPage": {
+    "title": "Cara Menggunakan",
+    "gettingStarted": "Memulai",
+    "gettingStartedDesc": "Dari halaman utama, Anda dapat melihat semua 114 surah. Klik surah mana pun untuk mulai membaca dari ayat pertama, atau gunakan tombol \"Baca per Halaman\" untuk memulai dari halaman 1.",
+    "readingNavigation": "Membaca & Navigasi",
+    "readingNavigationDesc": "Gunakan tombol panah pada keyboard: ↑ (Atas) untuk ayat sebelumnya, ↓ (Bawah) untuk ayat berikutnya, ← (Kiri) ke halaman sebelumnya, → (Kanan) ke halaman berikutnya. Di perangkat mobile, ketuk ayat yang ingin Anda fokuskan.",
+    "usingTranslation": "Menggunakan Terjemahan",
+    "usingTranslationDesc": "Ketuk atau klik ayat mana pun untuk menyematkannya. Terjemahan akan muncul di panel samping kanan. Klik tombol × pada kartu terjemahan atau klik di luar area ayat untuk melepas sematan. Anda dapat beralih antara terjemahan Inggris dan Indonesia menggunakan tombol bahasa di bagian atas panel samping.",
+    "takingNotes": "Membuat Catatan",
+    "takingNotesDesc": "Sematkan sebuah ayat untuk membuka editor catatan di panel samping. Ketik catatan Anda dan akan disimpan secara otomatis. Lihat semua catatan tersimpan di bagian \"Catatan Tersimpan\", klik catatan untuk melompat ke ayat tersebut, atau gunakan ikon tempat sampah untuk menghapusnya.",
+    "sidebarFeatures": "Fitur Panel Samping",
+    "sidebarFeaturesDesc": "Panel samping (buka dengan mengetuk ikon hamburger di mobile) memberi Anda akses ke: penggantian bahasa, terjemahan ayat, pembuatan catatan, daftar catatan tersimpan, pencarian surah, navigasi surah/ayat, kontrol ukuran huruf Arab, surah di halaman saat ini, dan panduan warna tajwid.",
+    "tajweedGuide": "Panduan Tajwid",
+    "tajweedGuideDesc": "Klik \"Panduan Tajwid\" di panel samping untuk memperluas legenda warna. Setiap warna mewakili aturan tajwid yang berbeda untuk membantu Anda melafalkan Al-Quran dengan benar."
+  }
+}

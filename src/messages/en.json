@@ -1,0 +1,88 @@
+{
+  "HomePage": {
+    "title": "Quran Digital",
+    "description": "Read, Learn & Understand the Holy Quran",
+    "searchPlaceholder": "Search Surah...",
+    "readNow": "Read Now",
+    "surahCount": "{count} Surahs",
+    "revelationType": {
+      "Meccan": "Meccan",
+      "Medinan": "Medinan"
+    },
+    "ayahs": "{count} Ayahs"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "howTo": "How to Use",
+    "settings": "Settings"
+  },
+  "PageViewer": {
+    "page": "Page {number}",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {current} of {total}",
+    "startReading": "Start Reading",
+    "readByPage": "Read by Page",
+    "goToPage": "Go to page"
+  },
+  "Sidebar": {
+    "translation": "Translation",
+    "note": "Note",
+    "savedNotes": "Saved Notes",
+    "search": "Search",
+    "navigate": "Navigate",
+    "arabicFontSize": "Arabic Font Size",
+    "surahsOnThisPage": "Surahs on this page",
+    "tajweedGuide": "Tajweed Guide",
+    "menu": "Menu",
+    "ruleRed": "Ghunnah",
+    "ruleRedDesc": "Nasalization — ن or م with shaddah",
+    "ruleGreen": "Ikhfa",
+    "ruleGreenDesc": "Hidden — noon sakin/tanween before ikhfa letters",
+    "ruleBlue": "Qalqalah",
+    "ruleBlueDesc": "Echo — ق ط ب ج د with sukun",
+    "ruleOrange": "Idgham bi-ghunnah",
+    "ruleOrangeDesc": "Merging with ghunnah — noon sakin/tanween before ي م و",
+    "rulePurple": "Idgham bila ghunnah",
+    "rulePurpleDesc": "Merging without ghunnah — noon sakin/tanween before ل ر",
+    "ruleBrown": "Iqlab",
+    "ruleBrownDesc": "Conversion — noon sakin/tanween before ب"
+  },
+  "AboutPage": {
+    "title": "About",
+    "description": "Quran Digital is a modern, accessible Quran reading application designed to help you read, learn, and understand the Holy Quran. Built with care for both desktop and mobile devices, it provides a clean and focused reading experience with powerful companion features.",
+    "features": "Features",
+    "feature1Title": "Page-by-Page Mushaf Layout",
+    "feature1Desc": "Read the Quran in a traditional page-by-page layout that mirrors the printed Mushaf, with Arabic text displayed inline with verse numbers.",
+    "feature2Title": "Side-by-Side Translation",
+    "feature2Desc": "View verse translations in the sidebar as you read. Simply tap or click any ayah to see its meaning in English or Indonesian.",
+    "feature3Title": "Tajweed Color Guide",
+    "feature3Desc": "Learn proper pronunciation with color-coded tajweed rules. Each rule is highlighted with a distinct color to help you recite correctly.",
+    "feature4Title": "Personal Notes",
+    "feature4Desc": "Save notes for any verse. Your notes are stored locally and can be browsed, edited, or deleted from the sidebar at any time.",
+    "feature5Title": "Keyboard Navigation",
+    "feature5Desc": "Navigate verses quickly using arrow keys: Up/Down for previous/next ayah, Left/Right for previous/next page.",
+    "feature6Title": "Dual Language Support",
+    "feature6Desc": "Switch seamlessly between English and Indonesian for the entire interface, including translations, menus, and navigation.",
+    "feature7Title": "Adjustable Arabic Font Size",
+    "feature7Desc": "Customize the Arabic text size to your preference for a comfortable reading experience.",
+    "feature8Title": "Quick Surah & Ayah Navigation",
+    "feature8Desc": "Jump directly to any surah and ayah using the navigation panel in the sidebar."
+  },
+  "HowToPage": {
+    "title": "How to Use",
+    "gettingStarted": "Getting Started",
+    "gettingStartedDesc": "From the home page, you can browse all 114 surahs. Click any surah to start reading from the first ayah, or use the \"Read by Page\" button to begin at page 1.",
+    "readingNavigation": "Reading & Navigation",
+    "readingNavigationDesc": "Use the arrow keys on your keyboard: ↑ (Up) moves to the previous ayah, ↓ (Down) moves to the next ayah, ← (Left) goes to the previous page, → (Right) goes to the next page. On mobile, tap the ayah you want to focus on.",
+    "usingTranslation": "Using Translation",
+    "usingTranslationDesc": "Tap or click any ayah to pin it. The translation will appear in the sidebar on the right. Click the × button on the translation card or click outside the ayah area to unpin. You can switch between English and Indonesian translations using the language buttons at the top of the sidebar.",
+    "takingNotes": "Taking Notes",
+    "takingNotesDesc": "Pin an ayah to open the note editor in the sidebar. Type your note and it will be saved automatically. View all your saved notes in the \"Saved Notes\" section, click any note to jump to that verse, or use the trash icon to delete it.",
+    "sidebarFeatures": "Sidebar Features",
+    "sidebarFeaturesDesc": "The sidebar (open by tapping the hamburger icon on mobile) gives you access to: language switching, verse translation, note taking, saved notes list, surah search, surah/ayah navigation, Arabic font size controls, surahs on the current page, and a tajweed color guide.",
+    "tajweedGuide": "Tajweed Guide",
+    "tajweedGuideDesc": "Click \"Tajweed Guide\" in the sidebar to expand the color legend. Each color represents a different tajweed rule to help you pronounce the Quran correctly."
+  }
+}

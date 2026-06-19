@@ -29,11 +29,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       `${BASE}${page}`,
       `${BASE}/id${page}`,
     );
+    addEntry(
+      `${BASE}/id${page}`,
+      `${BASE}${page}`,
+      `${BASE}/id${page}`,
+    );
   }
 
   for (let surah = 1; surah <= TOTAL_SURAHS; surah++) {
     entries.push({
       url: `${BASE}/${surah}:1`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          en: `${BASE}/${surah}:1`,
+          id: `${BASE}/id/${surah}:1`,
+        },
+      },
+    });
+    entries.push({
+      url: `${BASE}/id/${surah}:1`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { TOTAL_SURAHS } from '@/lib/quranApi';
 
-const BASE = 'https://quran-digital.vercel.app';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
 
 const staticPages = ['', '/about', '/how-to'];
 

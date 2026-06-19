@@ -118,6 +118,11 @@ export default async function Image({
     a => a.numberInSurah === targetAyah.numberInSurah,
   )?.text;
 
+  const cleanTranslation = translationText ? translationText.replace(/<[^>]*>/g, '') : '';
+  const displayTranslation = cleanTranslation.length > 220
+    ? cleanTranslation.substring(0, 220) + '...'
+    : cleanTranslation;
+
   const arabicLines = getArabicLines(targetAyah.text, arabicFontSize);
 
   const name = locale === 'id'
@@ -159,7 +164,7 @@ export default async function Image({
             justifyContent: 'center',
             width: '100%',
             maxWidth: '90%',
-            marginBottom: translationText ? 16 : 0,
+            marginBottom: displayTranslation ? 16 : 0,
           }}
         >
           {arabicLines.map((line, idx) => (
@@ -179,11 +184,11 @@ export default async function Image({
           ))}
         </div>
 
-        <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: translationText ? 28 : 0 }}>
+        <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: displayTranslation ? 28 : 0 }}>
           Page {targetAyah.page} — {toArabicNumeral(targetAyah.page)}
         </div>
 
-        {translationText ? (
+        {displayTranslation ? (
           <div
             style={{
               display: 'flex',
@@ -196,7 +201,7 @@ export default async function Image({
               borderTop: '1px solid rgba(160, 144, 112, 0.25)',
             }}
           >
-            {translationText.replace(/<[^>]*>/g, '')}
+            {displayTranslation}
           </div>
         ) : null}
 

@@ -76,6 +76,9 @@ export default async function Image({
     );
   }
 
+  const arabicLength = targetAyah.text.length;
+  const arabicFontSize = arabicLength > 700 ? 18 : arabicLength > 400 ? 24 : arabicLength > 200 ? 32 : arabicLength > 80 ? 42 : 52;
+
   const translationText = translationData?.ayahs?.find(
     a => a.numberInSurah === targetAyah.numberInSurah,
   )?.text;
@@ -107,10 +110,6 @@ export default async function Image({
           </span>
         </div>
 
-        <div style={{ display: 'flex', fontSize: 13, color: '#8a7a5a', marginBottom: 6 }}>
-          page {String(targetAyah.page).padStart(3, '0')} | {toArabicNumeral(targetAyah.page)}
-        </div>
-
         <div style={{ display: 'flex', fontSize: 14, color: '#a09070', marginBottom: 28 }}>
           Ayah {targetAyah.numberInSurah}
         </div>
@@ -118,17 +117,21 @@ export default async function Image({
         <div
           style={{
             display: 'flex',
-            fontSize: 52,
+            fontSize: arabicFontSize,
             color: '#e0d8c8',
             textAlign: 'center',
-            lineHeight: 2,
+            lineHeight: arabicLength > 150 ? 1.6 : 2,
             direction: 'rtl',
             fontFamily: 'Noto Naskh Arabic',
             maxWidth: '90%',
-            marginBottom: translationText ? 28 : 0,
+            marginBottom: translationText ? 16 : 0,
           }}
         >
           {targetAyah.text}
+        </div>
+
+        <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: translationText ? 28 : 0 }}>
+          Page {targetAyah.page} — {toArabicNumeral(targetAyah.page)}
         </div>
 
         {translationText ? (

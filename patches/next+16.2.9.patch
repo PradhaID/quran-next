@@ -1,8 +1,8 @@
 diff --git a/node_modules/next/dist/compiled/@vercel/og/index.edge.js b/node_modules/next/dist/compiled/@vercel/og/index.edge.js
-index 629fd61..42c99f2 100644
+index 629fd61..8a2aadf 100644
 --- a/node_modules/next/dist/compiled/@vercel/og/index.edge.js
 +++ b/node_modules/next/dist/compiled/@vercel/og/index.edge.js
-@@ -9913,6 +9913,39 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
+@@ -9913,6 +9913,41 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
    }
    return null;
  }
@@ -19,7 +19,8 @@ index 629fd61..42c99f2 100644
 +      return [];
 +    }
 +  }
-+  var substitutions = [];
++  var substitutions = new Array(subtable.coverages.length);
++  var hasSubstitution = false;
 +  for (var i = 0; i < subtable.lookupRecords.length; i++) {
 +    var lookupRecord = subtable.lookupRecords[i];
 +    var lookupTable = this.getLookupByIndex(lookupRecord.lookupListIndex);
@@ -32,17 +33,18 @@ index 629fd61..42c99f2 100644
 +        var glyphIndex = contextParams.get(lookupRecord.sequenceIndex);
 +        var substitution = lookup(glyphIndex);
 +        if (substitution) {
-+          substitutions.push(substitution);
++          substitutions[lookupRecord.sequenceIndex] = substitution;
++          hasSubstitution = true;
 +        }
 +      }
 +    }
 +  }
-+  return substitutions;
++  return hasSubstitution ? substitutions : [];
 +}
  function decompositionSubstitutionFormat1(glyphIndex, subtable) {
    var substituteIndex = lookupCoverage(glyphIndex, subtable.coverage);
    if (substituteIndex === -1) {
-@@ -10007,6 +10040,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
+@@ -10007,6 +10042,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
            [glyphIndex, subtable]
          );
        };
@@ -56,7 +58,7 @@ index 629fd61..42c99f2 100644
      case "63":
        return function(contextParams) {
          return chainingSubstitutionFormat3.apply(
-@@ -10077,6 +10117,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
+@@ -10077,6 +10119,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
              }));
            }
            break;
@@ -73,7 +75,7 @@ index 629fd61..42c99f2 100644
          case "63":
            substitution = lookup(contextParams);
            if (Array.isArray(substitution) && substitution.length) {
-@@ -10222,6 +10272,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
+@@ -10222,6 +10274,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
  function singleSubstitutionFormat2$1(action, tokens, index) {
    tokens[index].setState(action.tag, action.substitution);
  }
@@ -86,7 +88,7 @@ index 629fd61..42c99f2 100644
  function chainingSubstitutionFormat3$1(action, tokens, index) {
    action.substitution.forEach(function(subst, offset) {
      var token = tokens[index + offset];
-@@ -10240,6 +10296,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
+@@ -10240,6 +10298,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
  var SUBSTITUTIONS = {
    11: singleSubstitutionFormat1$1,
    12: singleSubstitutionFormat2$1,
@@ -95,10 +97,10 @@ index 629fd61..42c99f2 100644
    41: ligatureSubstitutionFormat1$1
  };
 diff --git a/node_modules/next/dist/compiled/@vercel/og/index.node.js b/node_modules/next/dist/compiled/@vercel/og/index.node.js
-index 416de7e..03b0806 100644
+index 416de7e..d1ff965 100644
 --- a/node_modules/next/dist/compiled/@vercel/og/index.node.js
 +++ b/node_modules/next/dist/compiled/@vercel/og/index.node.js
-@@ -9913,6 +9913,39 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
+@@ -9913,6 +9913,41 @@ function ligatureSubstitutionFormat1(contextParams, subtable) {
    }
    return null;
  }
@@ -115,7 +117,8 @@ index 416de7e..03b0806 100644
 +      return [];
 +    }
 +  }
-+  var substitutions = [];
++  var substitutions = new Array(subtable.coverages.length);
++  var hasSubstitution = false;
 +  for (var i = 0; i < subtable.lookupRecords.length; i++) {
 +    var lookupRecord = subtable.lookupRecords[i];
 +    var lookupTable = this.getLookupByIndex(lookupRecord.lookupListIndex);
@@ -128,17 +131,18 @@ index 416de7e..03b0806 100644
 +        var glyphIndex = contextParams.get(lookupRecord.sequenceIndex);
 +        var substitution = lookup(glyphIndex);
 +        if (substitution) {
-+          substitutions.push(substitution);
++          substitutions[lookupRecord.sequenceIndex] = substitution;
++          hasSubstitution = true;
 +        }
 +      }
 +    }
 +  }
-+  return substitutions;
++  return hasSubstitution ? substitutions : [];
 +}
  function decompositionSubstitutionFormat1(glyphIndex, subtable) {
    var substituteIndex = lookupCoverage(glyphIndex, subtable.coverage);
    if (substituteIndex === -1) {
-@@ -10007,6 +10040,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
+@@ -10007,6 +10042,13 @@ FeatureQuery.prototype.getLookupMethod = function(lookupTable, subtable) {
            [glyphIndex, subtable]
          );
        };
@@ -152,7 +156,7 @@ index 416de7e..03b0806 100644
      case "63":
        return function(contextParams) {
          return chainingSubstitutionFormat3.apply(
-@@ -10077,6 +10117,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
+@@ -10077,6 +10119,16 @@ FeatureQuery.prototype.lookupFeature = function(query) {
              }));
            }
            break;
@@ -169,7 +173,7 @@ index 416de7e..03b0806 100644
          case "63":
            substitution = lookup(contextParams);
            if (Array.isArray(substitution) && substitution.length) {
-@@ -10222,6 +10272,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
+@@ -10222,6 +10274,12 @@ function singleSubstitutionFormat1$1(action, tokens, index) {
  function singleSubstitutionFormat2$1(action, tokens, index) {
    tokens[index].setState(action.tag, action.substitution);
  }
@@ -182,7 +186,7 @@ index 416de7e..03b0806 100644
  function chainingSubstitutionFormat3$1(action, tokens, index) {
    action.substitution.forEach(function(subst, offset) {
      var token = tokens[index + offset];
-@@ -10240,6 +10296,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
+@@ -10240,6 +10298,7 @@ function ligatureSubstitutionFormat1$1(action, tokens, index) {
  var SUBSTITUTIONS = {
    11: singleSubstitutionFormat1$1,
    12: singleSubstitutionFormat2$1,

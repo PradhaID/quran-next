@@ -46,7 +46,7 @@ export default async function Image({
   const [surah, translationData, amiriData, geistData] = await Promise.all([
     getSurah(surahNum).catch(() => null),
     getSurahTranslation(surahNum, locale).catch(() => null),
-    loadFont(`${BASE}/fonts/Amiri-Regular.ttf`),
+    loadFont(`${BASE}/fonts/NotoNaskhArabic-Regular.ttf`),
     loadFont(`${BASE}/fonts/Geist-Regular.ttf`),
   ]);
 
@@ -107,22 +107,23 @@ export default async function Image({
           </span>
         </div>
 
-        <div style={{ fontSize: 13, color: '#8a7a5a', marginBottom: 6 }}>
+        <div style={{ display: 'flex', fontSize: 13, color: '#8a7a5a', marginBottom: 6 }}>
           page {String(targetAyah.page).padStart(3, '0')} | {toArabicNumeral(targetAyah.page)}
         </div>
 
-        <div style={{ fontSize: 14, color: '#a09070', marginBottom: 28 }}>
+        <div style={{ display: 'flex', fontSize: 14, color: '#a09070', marginBottom: 28 }}>
           Ayah {targetAyah.numberInSurah}
         </div>
 
         <div
           style={{
+            display: 'flex',
             fontSize: 52,
             color: '#e0d8c8',
             textAlign: 'center',
             lineHeight: 2,
             direction: 'rtl',
-            fontFamily: 'Amiri',
+            fontFamily: 'Noto Naskh Arabic',
             maxWidth: '90%',
             marginBottom: translationText ? 28 : 0,
           }}
@@ -130,9 +131,10 @@ export default async function Image({
           {targetAyah.text}
         </div>
 
-        {translationText && (
+        {translationText ? (
           <div
             style={{
+              display: 'flex',
               fontSize: 20,
               color: '#a09070',
               textAlign: 'center',
@@ -144,9 +146,9 @@ export default async function Image({
           >
             {translationText.replace(/<[^>]*>/g, '')}
           </div>
-        )}
+        ) : null}
 
-        <div style={{ position: 'absolute', bottom: 28, fontSize: 12, color: '#6a6575', letterSpacing: '0.1em' }}>
+        <div style={{ display: 'flex', position: 'absolute', bottom: 28, fontSize: 12, color: '#6a6575', letterSpacing: '0.1em' }}>
           quran.pradha.id
         </div>
       </div>
@@ -156,7 +158,7 @@ export default async function Image({
       height: 630,
       fonts: hasFonts
         ? [
-            { name: 'Amiri', data: amiriData, weight: 400, style: 'normal' },
+            { name: 'Noto Naskh Arabic', data: amiriData, weight: 400, style: 'normal' },
             { name: 'sans-serif', data: geistData, weight: 400, style: 'normal' },
           ]
         : undefined,

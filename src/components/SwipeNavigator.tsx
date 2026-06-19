@@ -48,7 +48,7 @@ export default function SwipeNavigator({ prevHref, nextHref, children }: SwipeNa
 
   const animStyle: React.CSSProperties = animDir
     ? {
-        transform: 'scale(0.96)',
+        transform: `translateX(${animDir === 'next' ? -8 : 8}%) scale(0.94)`,
         opacity: 0,
         transition: `transform ${ANIM_DURATION}ms ease-in-out, opacity ${ANIM_DURATION}ms ease-in-out`,
       }
@@ -56,7 +56,7 @@ export default function SwipeNavigator({ prevHref, nextHref, children }: SwipeNa
 
   return (
     <PageTurnContext.Provider value={{ navigate }}>
-      <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ width: '100%' }}>
+      <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ width: '100%', overflow: 'hidden' }}>
         <div style={animStyle}>
           {children}
         </div>

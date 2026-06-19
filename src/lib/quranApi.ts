@@ -35,14 +35,20 @@ export interface SurahResponse {
 
 export const TOTAL_PAGES = 604;
 
-export async function getPage(pageNumber: number): Promise<PageResponse> {
-  const res = await fetch(`${BASE_URL}/page/${pageNumber}/ar`, {
-    next: { revalidate: 86400 },
-  });
-  if (!res.ok) throw new Error(`Failed to fetch page ${pageNumber}`);
-  const json = await res.json();
-  if (!json.data) throw new Error(json.data?.error || 'Unknown error');
-  return json.data;
+export async function getPage(pageNumber: number, retries = 2): Promise<PageResponse> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch(`${BASE_URL}/page/${pageNumber}/ar`, {
+      next: { revalidate: 86400 },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data) return json.data;
+    }
+    if (attempt < retries) {
+      await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+    }
+  }
+  throw new Error(`Failed to fetch page ${pageNumber}`);
 }
 
 interface EditionMap {

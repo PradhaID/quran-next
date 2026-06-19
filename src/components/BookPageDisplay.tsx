@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import type { AyahData } from '@/lib/quranApi';
 import { toColoredSegments } from '@/lib/tajweed';
 import type { TajweedColor } from '@/lib/tajweed';
+import { usePageTurn } from '@/lib/PageTurnContext';
 
 
 interface BookPageDisplayProps {
@@ -56,6 +57,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
   pinnedRef.current = pinnedId;
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
+  const { navigate } = usePageTurn();
 
   const handleVerseClick = useCallback((ayah: AyahData) => {
     if (!ayah.surah) return;
@@ -71,12 +73,12 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' && nextPageFirst?.surah) {
         e.preventDefault();
-        window.location.href = `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}`;
+        navigate('next', `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}`);
         return;
       }
       if (e.key === 'ArrowRight' && prevPageFirst?.surah) {
         e.preventDefault();
-        window.location.href = `${prefix}/${prevPageFirst.surah.number}:${prevPageFirst.numberInSurah}`;
+        navigate('prev', `${prefix}/${prevPageFirst.surah.number}:${prevPageFirst.numberInSurah}`);
         return;
       }
 
@@ -97,15 +99,15 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
       }
 
       if (nextIdx >= ayahs.length && e.key === 'ArrowDown' && nextPageFirst?.surah) {
-        window.location.href = `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}`;
+        navigate('next', `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}`);
       } else if (nextIdx < 0 && e.key === 'ArrowUp' && prevPageFirst?.surah) {
-        window.location.href = `${prefix}/${prevPageFirst.surah.number}:${prevPageFirst.numberInSurah}`;
+        navigate('prev', `${prefix}/${prevPageFirst.surah.number}:${prevPageFirst.numberInSurah}`);
       }
     };
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [ayahs, onPinAyah, prevPageFirst, nextPageFirst, prefix]);
+  }, [ayahs, onPinAyah, prevPageFirst, nextPageFirst, prefix, navigate]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {

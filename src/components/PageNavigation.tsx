@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import type { AyahData } from '@/lib/quranApi';
+import { usePageTurn } from '@/lib/PageTurnContext';
 
 interface PageNavigationProps {
   prevAyah: AyahData | null;
@@ -11,21 +11,22 @@ interface PageNavigationProps {
 
 export default function PageNavigation({ prevAyah, nextAyah, locale }: PageNavigationProps) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
+  const { navigate } = usePageTurn();
 
   return (
     <nav className="w-full mt-4 mb-2">
       <div className="flex items-center justify-between gap-4">
         <div className="w-32 flex justify-start">
           {nextAyah?.surah && (
-            <Link
-              href={`${prefix}/${nextAyah.surah.number}:${nextAyah.numberInSurah}`}
-              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-primary/5 hover:bg-primary hover:text-white text-primary font-semibold text-sm transition-all duration-200"
+            <button
+              onClick={() => navigate('next', `${prefix}/${nextAyah.surah!.number}:${nextAyah.numberInSurah}`)}
+              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-primary/5 hover:bg-primary hover:text-white text-primary font-semibold text-sm transition-all duration-200 cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
               Next
-            </Link>
+            </button>
           )}
         </div>
 
@@ -39,15 +40,15 @@ export default function PageNavigation({ prevAyah, nextAyah, locale }: PageNavig
 
         <div className="w-32 flex justify-end">
           {prevAyah?.surah && (
-            <Link
-              href={`${prefix}/${prevAyah.surah.number}:${prevAyah.numberInSurah}`}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary/5 hover:bg-primary hover:text-white text-primary font-semibold text-sm transition-all duration-200"
+            <button
+              onClick={() => navigate('prev', `${prefix}/${prevAyah.surah!.number}:${prevAyah.numberInSurah}`)}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary/5 hover:bg-primary hover:text-white text-primary font-semibold text-sm transition-all duration-200 cursor-pointer"
             >
               Previous
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </button>
           )}
         </div>
       </div>

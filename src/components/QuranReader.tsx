@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import type { AyahData, SurahListItem } from '@/lib/quranApi';
 import BookPageDisplay from './BookPageDisplay';
 import PageNavigation from './PageNavigation';
+import SwipeNavigator from './SwipeNavigator';
 import Sidebar from './Sidebar';
 
 interface QuranReaderProps {
@@ -119,8 +120,12 @@ export default function QuranReader({
     }
   }, [ayahs, prefix]);
 
+  const navPrevHref = prevPageFirst?.surah ? `${prefix}/${prevPageFirst.surah.number}:${prevPageFirst.numberInSurah}` : null;
+  const navNextHref = nextPageFirst?.surah ? `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}` : null;
+
   return (
     <div className="flex min-h-screen">
+      <SwipeNavigator prevHref={navPrevHref} nextHref={navNextHref}>
       <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-3xl mx-auto w-full gap-2 md:gap-2">
         {children}
         <BookPageDisplay
@@ -159,6 +164,7 @@ export default function QuranReader({
           </div>
         )}
       </div>
+      </SwipeNavigator>
 
       <Sidebar
         search={search}

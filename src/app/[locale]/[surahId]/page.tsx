@@ -81,7 +81,7 @@ export default async function SurahPage({
   const pageNumber = targetAyah.page;
 
   const [pageData, translationData, prevPageFirst, nextPageFirst] = await Promise.all([
-    getPage(pageNumber),
+    getPage(pageNumber).catch(() => null),
     getPageTranslation(pageNumber, locale),
     pageNumber > 1
       ? getPage(pageNumber - 1).then(p => p.ayahs[0]).catch(() => null)
@@ -90,6 +90,8 @@ export default async function SurahPage({
       ? getPage(pageNumber + 1).then(p => p.ayahs[0]).catch(() => null)
       : Promise.resolve(null),
   ]);
+
+  if (!pageData) notFound();
 
   const ayahs = pageData.ayahs;
   const translationAyahs = translationData?.ayahs;

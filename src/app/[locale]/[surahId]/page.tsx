@@ -46,20 +46,11 @@ export async function generateMetadata({ params }: {
     }
   }
 
-  const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
-  const ogUrl = `${BASE}/${locale === 'en' ? '' : `${locale}/`}${surahNum}:${targetAyah?.numberInSurah || 1}/opengraph-image`;
-
   return {
     title: `${name} — ${surah.number}`,
     description,
-    openGraph: {
-      description,
-      images: [{ url: ogUrl, width: 1200, height: 630 }],
-    },
-    twitter: {
-      description,
-      images: [{ url: ogUrl, width: 1200, height: 630 }],
-    },
+    openGraph: { description },
+    twitter: { description },
   };
 }
 

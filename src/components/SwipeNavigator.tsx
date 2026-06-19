@@ -48,8 +48,8 @@ export default function SwipeNavigator({ prevHref, nextHref, children }: SwipeNa
 
   const animStyle: React.CSSProperties = animDir
     ? {
-        transformOrigin: animDir === 'next' ? 'left center' : 'right center',
-        transform: `perspective(1200px) rotateY(${animDir === 'next' ? -12 : 12}deg) scale(0.97)`,
+        transformOrigin: animDir === 'next' ? 'right center' : 'left center',
+        transform: `perspective(1200px) rotateY(${animDir === 'next' ? 12 : -12}deg) scale(0.97)`,
         opacity: 0.5,
         transition: `transform ${ANIM_DURATION}ms ease-in-out, opacity ${ANIM_DURATION}ms ease-in-out`,
       }

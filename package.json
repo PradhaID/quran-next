@@ -25,7 +25,8 @@
     "build": "next build",
     "start": "next start -p 3005",
     "lint": "eslint",
-    "import": "node import-surahs.js"
+    "import": "node import-surahs.js",
+    "deploy": "./deploy.sh"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

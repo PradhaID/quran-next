@@ -13,6 +13,8 @@ export async function generateMetadata({ params }: {
   return {
     title: t('title'),
     description: t('description'),
+    openGraph: { description: t('description') },
+    twitter: { description: t('description') },
   };
 }
 

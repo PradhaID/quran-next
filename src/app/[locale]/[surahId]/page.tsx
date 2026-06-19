@@ -49,6 +49,8 @@ export async function generateMetadata({ params }: {
   return {
     title: `${name} — ${surah.number}`,
     description,
+    openGraph: { description },
+    twitter: { description },
   };
 }
 

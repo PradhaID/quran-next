@@ -10,6 +10,8 @@ export async function generateMetadata({ params }: {
   const t = await getTranslations({ locale, namespace: 'HowToPage' });
   return {
     title: t('title'),
+    openGraph: { description: t('title') },
+    twitter: { description: t('title') },
   };
 }
 

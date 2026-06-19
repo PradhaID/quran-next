@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getSurah, getPage, getPageTranslation, getAllSurahs, TOTAL_SURAHS, TOTAL_PAGES } from '@/lib/quranApi';
+import { getSurah, getPage, getPageTranslation, getSurahTranslation, getAllSurahs, TOTAL_SURAHS, TOTAL_PAGES } from '@/lib/quranApi';
 import QuranReader from '@/components/QuranReader';
 import SiteNav from '@/components/SiteNav';
 import type { Metadata } from 'next';
@@ -10,20 +10,45 @@ export async function generateMetadata({ params }: {
 }): Promise<Metadata> {
   const { locale, surahId } = await params;
   const decodedId = decodeURIComponent(surahId);
-  const surahNum = parseInt(decodedId.split(':')[0], 10);
+  const parts = decodedId.split(':');
+  const surahNum = parseInt(parts[0], 10);
+  const ayahNum = parts.length > 1 ? parseInt(parts[1], 10) : null;
 
   if (isNaN(surahNum) || surahNum < 1 || surahNum > TOTAL_SURAHS) {
     return { title: 'Not Found' };
   }
 
-  const surah = await getSurah(surahNum);
+  const [surah, translationData] = await Promise.all([
+    getSurah(surahNum),
+    getSurahTranslation(surahNum, locale).catch(() => null),
+  ]);
+
+  const targetAyah = ayahNum
+    ? surah.ayahs.find(a => a.numberInSurah === ayahNum)
+    : surah.ayahs[0];
+
   const name = locale === 'id'
     ? (surah as any).name_latin || surah.englishName
     : surah.englishName;
 
+  let description = `Read Surah ${name} (${surah.number}) with translation and tajweed color coding.`;
+
+  if (translationData?.ayahs[0]?.text) {
+    const translationAyah = targetAyah
+      ? translationData.ayahs.find(a => a.numberInSurah === targetAyah.numberInSurah)
+      : translationData.ayahs[0];
+
+    if (translationAyah) {
+      const text = translationAyah.text.replace(/<[^>]*>/g, '').substring(0, 200);
+      if (text) {
+        description = `${name} ${translationAyah.numberInSurah}: ${text}`;
+      }
+    }
+  }
+
   return {
     title: `${name} — ${surah.number}`,
-    description: `Read Surah ${name} (${surah.number}) with translation and tajweed color coding.`,
+    description,
   };
 }
 

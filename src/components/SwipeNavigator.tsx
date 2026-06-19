@@ -48,7 +48,7 @@ export default function SwipeNavigator({ prevHref, nextHref, children }: SwipeNa
 
   const animStyle: React.CSSProperties = animDir
     ? {
-        transform: `translateX(${animDir === 'next' ? -8 : 8}%) scale(0.94)`,
+        transform: `translateX(${animDir === 'next' ? 8 : -8}%) scale(0.94)`,
         opacity: 0,
         transition: `transform ${ANIM_DURATION}ms ease-in-out, opacity ${ANIM_DURATION}ms ease-in-out`,
       }

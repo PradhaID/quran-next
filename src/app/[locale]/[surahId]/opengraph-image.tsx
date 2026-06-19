@@ -129,7 +129,7 @@ export default async function Image({
             marginBottom: translationText ? 16 : 0,
           }}
         >
-          {ArabicShaper.convertArabic(targetAyah.text)}
+          {ArabicShaper.convertArabic(targetAyah.text).split('').reverse().join('')}
         </div>
 
         <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: translationText ? 28 : 0 }}>

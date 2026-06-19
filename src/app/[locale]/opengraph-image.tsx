@@ -49,7 +49,7 @@ export default async function Image() {
             marginBottom: 12,
           }}
         >
-          {ArabicShaper.convertArabic('القرآن')}
+          {ArabicShaper.convertArabic('القرآن').split('').reverse().join('')}
         </div>
         <div
           style={{

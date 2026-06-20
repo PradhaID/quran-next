@@ -40,8 +40,9 @@ function getArabicLines(text: string, fontSize: number): string[] {
     lines.push(currentLine);
   }
 
-  // Reverse each line to make it render RTL in LTR layout engine
-  return lines.map(line => line.split('').reverse().join(''));
+  // Reverse the order of lines to make it render RTL in LTR layout engine
+  // but keep each line's content intact to preserve punctuation position
+  return lines.reverse();
 }
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';

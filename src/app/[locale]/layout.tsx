@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: {
       title: { template: `%s | ${t('title')}`, default: t('title') },
       description: t('description'),
       type: 'website',
+      siteName: 'Quran Digital',
       images: [
         {
           url: locale === 'id' ? '/img/featured-id.webp' : '/img/featured-en.webp',

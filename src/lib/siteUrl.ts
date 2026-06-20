@@ -23,6 +23,7 @@ export function buildOpenGraph(
   return {
     type: 'website',
     url: pageUrl(path, locale),
+    siteName: 'Quran Digital',
     ...fields,
   };
 }

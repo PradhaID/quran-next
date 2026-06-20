@@ -53,34 +53,24 @@ export default async function HomePage({
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-7xl mx-auto w-full">
       <SiteNav locale={locale} current="home" />
       
-      {/* Hero Section */}
-      <section className="w-full mb-16 text-center space-y-6 rounded-3xl shadow-sm relative overflow-hidden" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
+      {/* Hero Section — full width */}
+      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
         <img
           src={locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif'}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        
-        <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 py-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-white font-sans tracking-tight drop-shadow-lg">
-            {t('title')}
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto dropshadow">
-            {t('description')}
-          </p>
-          
-          {/* Language Switcher */}
-          <div className="flex justify-center gap-4 pt-6">
-            <Link href="/" locale="en" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'en' ? 'bg-white text-foreground' : 'bg-white/20 text-white hover:bg-white/30'}`}>
-              English
-            </Link>
-            <Link href="/" locale="id" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'id' ? 'bg-white text-foreground' : 'bg-white/20 text-white hover:bg-white/30'}`}>
-              Indonesia
-            </Link>
-          </div>
-        </div>
       </section>
+
+      {/* Language Switcher */}
+      <div className="flex justify-center gap-4 mb-10">
+        <Link href="/" locale="en" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'en' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
+          English
+        </Link>
+        <Link href="/" locale="id" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'id' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
+          Indonesia
+        </Link>
+      </div>
 
       {/* Read by Page CTA */}
       <div className="w-full mb-8">

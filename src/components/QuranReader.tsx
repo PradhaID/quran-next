@@ -127,9 +127,9 @@ export default function QuranReader({
 
   return (
     <div className="flex min-h-screen">
+      {children}
       <SwipeNavigator prevHref={navPrevHref} nextHref={navNextHref}>
       <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-full md:max-w-3xl mx-auto w-full gap-2 md:gap-2">
-        {children}
         <BookPageDisplay
           ayahs={filteredAyahs}
           translationAyahs={filteredTranslations}

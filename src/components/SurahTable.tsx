@@ -9,7 +9,7 @@ export interface SurahRow {
   name: string;
   name_latin: string;
   number_of_ayah: number;
-  revelation_type: string;
+  revelationType: string;
   translations?: Record<string, { name: string }>;
 }
 
@@ -79,7 +79,7 @@ export default function SurahTable({ surahs, locale, revelationLabels }: Props) 
         <tbody>
           {filtered.map(surah => {
             const translationStr = surah.translations?.[locale]?.name || surah.translations?.en?.name || '';
-            const revType = surah.revelation_type === 'Meccan' ? 'Meccan' : 'Medinan';
+            const revType = surah.revelationType === 'Meccan' ? 'Meccan' : 'Medinan';
             const revLabel = revelationLabels[revType] || revType;
             const selected = selectedAyahs[surah.number] || 1;
 

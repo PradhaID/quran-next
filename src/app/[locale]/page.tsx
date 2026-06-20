@@ -45,7 +45,7 @@ export default async function HomePage({
       name: 1, 
       name_latin: 1, 
       number_of_ayah: 1, 
-      revelation_type: 1,
+      revelationType: 1,
       translations: 1
     }
   }).sort({ number: 1 }).toArray();

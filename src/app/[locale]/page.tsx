@@ -54,25 +54,31 @@ export default async function HomePage({
       <SiteNav locale={locale} current="home" />
       
       {/* Hero Section */}
-      <section className="w-full mb-16 text-center space-y-6 glass-panel rounded-3xl p-12 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+      <section className="w-full mb-16 text-center space-y-6 rounded-3xl shadow-sm relative overflow-hidden" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
+        <img
+          src={locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif'}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         
-        <h1 className="text-5xl md:text-6xl font-bold text-primary dark:text-primary-light font-sans tracking-tight z-10 relative">
-          {t('title')}
-        </h1>
-        <p className="text-xl text-foreground/80 font-medium z-10 relative max-w-2xl mx-auto">
-          {t('description')}
-        </p>
-        
-        {/* Language Switcher */}
-        <div className="flex justify-center gap-4 pt-4 z-10 relative">
-          <Link href="/" locale="en" className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'en' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
-            English
-          </Link>
-          <Link href="/" locale="id" className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'id' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
-            Indonesia
-          </Link>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 py-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-white font-sans tracking-tight drop-shadow-lg">
+            {t('title')}
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto dropshadow">
+            {t('description')}
+          </p>
+          
+          {/* Language Switcher */}
+          <div className="flex justify-center gap-4 pt-6">
+            <Link href="/" locale="en" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'en' ? 'bg-white text-foreground' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+              English
+            </Link>
+            <Link href="/" locale="id" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'id' ? 'bg-white text-foreground' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+              Indonesia
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -35,6 +35,7 @@ export function ogImage(locale: string) {
         url: locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif',
         width: 1200,
         height: 630,
+
       },
     ],
   };

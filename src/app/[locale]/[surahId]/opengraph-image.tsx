@@ -3,7 +3,7 @@ import { getSurah, getSurahTranslation, TOTAL_SURAHS } from '@/lib/quranApi';
 // @ts-ignore
 import ArabicShaper from 'arabic-persian-reshaper/ArabicShaper';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const EASTERN_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 

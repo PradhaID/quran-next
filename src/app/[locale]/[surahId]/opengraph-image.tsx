@@ -40,8 +40,8 @@ function getArabicLines(text: string, fontSize: number): string[] {
     lines.push(currentLine);
   }
 
-  // Keep lines in original order for proper RTL rendering
-  return lines;
+  // Reverse each line to make it render RTL in LTR layout engine
+  return lines.map(line => line.split('').reverse().join(''));
 }
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
@@ -177,7 +177,6 @@ export default async function Image({
                 textAlign: 'center',
                 lineHeight: arabicLength > 150 ? 1.6 : 2,
                 fontFamily: 'Noto Naskh Arabic',
-                direction: 'rtl',
               }}
             >
               {line}

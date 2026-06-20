@@ -58,7 +58,6 @@ export async function generateMetadata({ params }: {
     openGraph: buildOpenGraph(locale, surahId, {
       title,
       description,
-      images: [],
     }),
     twitter: {
       title,

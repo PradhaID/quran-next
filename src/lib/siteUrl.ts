@@ -23,6 +23,12 @@ export function buildOpenGraph(
   return {
     type: 'website',
     url: pageUrl(path, locale),
+    ...fields,
+  };
+}
+
+export function ogImage(locale: string) {
+  return {
     images: [
       {
         url: locale === 'id' ? '/img/featured-id.webp' : '/img/featured-en.webp',
@@ -30,6 +36,5 @@ export function buildOpenGraph(
         height: 630,
       },
     ],
-    ...fields,
   };
 }

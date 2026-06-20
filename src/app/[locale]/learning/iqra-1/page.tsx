@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import SiteNav from '@/components/SiteNav';
-import { buildOpenGraph } from '@/lib/siteUrl';
+import { buildOpenGraph, ogImage } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: {
@@ -11,9 +11,12 @@ export async function generateMetadata({ params }: {
   const t = await getTranslations({ locale, namespace: 'LearningPage' });
   return {
     title: t('iqra1Title'),
-    openGraph: buildOpenGraph(locale, '/learning/iqra-1', {
-      description: t('iqra1Desc'),
-    }),
+    openGraph: {
+      ...buildOpenGraph(locale, '/learning/iqra-1', {
+        description: t('iqra1Desc'),
+      }),
+      ...ogImage(locale),
+    },
   };
 }
 

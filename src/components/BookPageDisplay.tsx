@@ -141,7 +141,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
           </div>
         </div>
 
-        <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-2 text-justify" dir="rtl" style={{ fontSize: `calc(1.5rem * ${arabicFontScale})`, lineHeight: 2.4 }}>
+        <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-2 text-justify font-arabic" dir="rtl" style={{ fontSize: `calc(1.5rem * ${arabicFontScale})`, lineHeight: 2.35 }}>
           {ayahs.map((ayah, index) => {
             const showSurahHeader = ayah.surah
               ? ayah.numberInSurah === 1 && (index === 0 || ayahs[index - 1]?.surah?.number !== ayah.surah.number)
@@ -175,7 +175,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
                   onClick={() => handleVerseClick(ayah)}
                 >
                   <span className="text-[#1a1a1a] dark:text-[#e0d8c8] select-all">{renderSegmented(showDecorativeBismillah ? stripBismillah(ayah.text) || ayah.text : ayah.text)}</span>
-                  <span className="inline-flex items-center justify-center w-8 h-8 text-sm font-bold text-[#8a7a5a] dark:text-[#8a8595] bg-[#e8dcc8]/60 dark:bg-[#3a3545] rounded-full pointer-events-none mx-0.5 align-middle" style={{ fontSize: '0.875rem', lineHeight: 1 }}>
+                  <span className="inline-flex items-center justify-center w-8 h-8 font-arabic text-sm font-bold text-[#8a7a5a] dark:text-[#8a8595] bg-[#e8dcc8]/60 dark:bg-[#3a3545] rounded-full pointer-events-none mx-0.5 align-middle" style={{ fontSize: '0.875rem', lineHeight: 1 }}>
                     {toArabicNumeral(ayah.numberInSurah)}
                   </span>
                 </span>

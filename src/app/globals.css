@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'hafs';
+  src: url('/fonts/KFGQPC-Hafs.woff2') format('woff2'),
+       url('/fonts/KFGQPC-Hafs.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-arabic: var(--font-amiri), serif;
+  --font-arabic: hafs, 'KFGQPC Hafs', 'Traditional Arabic', serif;
   
   --color-primary: #064E3B; /* Deep Emerald Green */
   --color-primary-light: #10B981;

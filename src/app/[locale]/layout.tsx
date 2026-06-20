@@ -4,18 +4,12 @@ import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { SITE_URL } from '@/lib/siteUrl';
 import type { Metadata, Viewport } from 'next';
-import { Inter, Amiri } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import "../globals.css";
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-});
-
-const amiri = Amiri({
-  subsets: ['arabic', 'latin'],
-  weight: ['400', '700'],
-  variable: '--font-amiri',
 });
 
 export function generateStaticParams() {
@@ -67,7 +61,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${amiri.variable}`}>
+    <html lang={locale} className={inter.variable}>
       <body className="min-h-full flex flex-col font-sans bg-surface text-foreground selection:bg-transparent antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}

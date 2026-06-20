@@ -157,7 +157,7 @@ export default function QuranReader({
                   href={`${prefix}/${surah.number}:1`}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 text-primary/70 text-xs font-medium hover:bg-primary/10 hover:text-primary transition-colors"
                 >
-                  {surah.number}. {surah.englishName}
+                  {surah.number}. {surah.englishName} ({surah.translationName || surah.englishNameTranslation})
                 </a>
               ))}
             </div>

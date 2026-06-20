@@ -171,7 +171,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
             <div className="p-3 bg-[#f0ebe0] dark:bg-[#22202d] border border-[#d4c9b4] dark:border-[#3a3545] rounded-xl space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-semibold text-foreground/50 tracking-wider uppercase">
-                  {pinnedAyah.surah.englishName} — {pinnedAyah.numberInSurah}
+                  {pinnedAyah.surah.englishName} ({pinnedAyah.surah.translationName || pinnedAyah.surah.englishNameTranslation}) — {pinnedAyah.numberInSurah}
                 </span>
                 <button
                   onClick={onUnpinAyah}
@@ -218,7 +218,8 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
                 {noteEntries.map(([id, text]) => {
                   const [surahNum, ayahNum] = id.split(':');
                   const surah = surahLookup.get(Number(surahNum));
-                  const display = surah ? `${surah.number}. ${surah.englishName}` : `Surah ${surahNum}`;
+                  const surahName = surah ? (surah.translationName || surah.englishNameTranslation) : '';
+                  const display = surah ? `${surah.number}. ${surah.englishName} (${surahName})` : `Surah ${surahNum}`;
                   return (
                     <div
                       key={id}
@@ -280,7 +281,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
                 <option value="">Surah</option>
                 {allSurahs.map(s => (
                   <option key={s.number} value={s.number}>
-                    {s.number}. {s.englishName}
+                    {s.number}. {s.englishName} ({s.translationName || s.englishNameTranslation})
                   </option>
                 ))}
               </select>
@@ -344,7 +345,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
                   className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-foreground/60 hover:text-foreground hover:bg-primary/5 transition-colors"
                 >
                   <span className="font-arabic text-sm">{s.name}</span>
-                  <span className="text-foreground/30 ml-auto">{s.number}. {s.englishName}</span>
+                  <span className="text-foreground/30 ml-auto">{s.number}. {s.englishName} ({s.translationName || s.englishNameTranslation})</span>
                 </a>
               ))}
             </div>

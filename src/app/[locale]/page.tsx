@@ -3,7 +3,7 @@ import {setRequestLocale} from 'next-intl/server';
 import clientPromise from '@/lib/mongodb';
 import { Link } from '@/i18n/routing';
 import SiteNav from '@/components/SiteNav';
-import { pageUrl } from '@/lib/siteUrl';
+import { buildOpenGraph } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: {
@@ -14,10 +14,9 @@ export async function generateMetadata({ params }: {
   return {
     title: t('title'),
     description: t('description'),
-    openGraph: {
+    openGraph: buildOpenGraph(locale, '', {
       description: t('description'),
-      url: pageUrl('', locale),
-    },
+    }),
     twitter: { description: t('description') },
   };
 }

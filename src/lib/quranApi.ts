@@ -32,6 +32,7 @@ export interface SurahResponse {
   numberOfAyahs: number;
   revelationType: string;
   ayahs: AyahData[];
+  translationName?: string;
 }
 
 export const TOTAL_PAGES = 604;
@@ -104,13 +105,13 @@ function docToTranslationAyahs(doc: SurahDoc, locale: string): AyahData[] {
   });
 }
 
-export async function getSurah(surahNum: number): Promise<SurahResponse> {
+export async function getSurah(surahNum: number, locale?: string): Promise<SurahResponse> {
   const client = await clientPromise;
   const db = client.db();
   const doc = await db.collection('surahs').findOne<SurahDoc>({ number: surahNum });
   if (!doc) throw new Error(`Surah ${surahNum} not found`);
   return {
-    ...docToSurahInfo(doc),
+    ...docToSurahInfo(doc, locale),
     ayahs: docToAyahs(doc),
   };
 }

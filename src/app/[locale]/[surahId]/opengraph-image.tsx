@@ -116,7 +116,7 @@ export default async function Image({
   }
 
   const [surah, translationData, amiriData, geistData] = await Promise.all([
-    getSurah(surahNum).catch(() => null),
+    getSurah(surahNum, locale).catch(() => null),
     getSurahTranslation(surahNum, locale).catch(() => null),
     loadFont(`${BASE}/fonts/NotoNaskhArabic-Regular.ttf`),
     loadFont(`${BASE}/fonts/Geist-Regular.ttf`),
@@ -165,7 +165,8 @@ export default async function Image({
   const baseName = locale === 'id'
     ? (surah as any).name_latin || surah.englishName
     : surah.englishName;
-  const name = `${baseName} (${surah.englishNameTranslation})`;
+  const translationName = surah.translationName || surah.englishNameTranslation;
+  const name = `${baseName} (${translationName})`;
 
   const hasFonts = amiriData && geistData;
 

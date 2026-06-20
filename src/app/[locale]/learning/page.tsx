@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: {
       }),
       ...ogImage(locale),
     },
-    twitter: { description: t('description') },
+    twitter: { card: 'summary_large_image', description: t('description') },
   };
 }
 

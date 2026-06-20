@@ -162,9 +162,10 @@ export default async function Image({
 
   const arabicLines = getArabicLines(targetAyah.text, surahNum, targetAyah.numberInSurah, arabicFontSize);
 
-  const name = locale === 'id'
+  const baseName = locale === 'id'
     ? (surah as any).name_latin || surah.englishName
     : surah.englishName;
+  const name = `${baseName} (${surah.englishNameTranslation})`;
 
   const hasFonts = amiriData && geistData;
 
@@ -189,7 +190,7 @@ export default async function Image({
           </span>
         </div>
 
-        <div style={{ display: 'flex', fontSize: 14, color: '#a09070', marginBottom: 28 }}>
+        <div style={{ display: 'flex', fontSize: 18, color: '#a09070', marginBottom: 28 }}>
           Ayah {targetAyah.numberInSurah}
         </div>
 
@@ -221,7 +222,7 @@ export default async function Image({
           ))}
         </div>
 
-        <div style={{ display: 'flex', fontSize: 14, color: '#8a7a5a', marginBottom: displayTranslation ? 28 : 0 }}>
+        <div style={{ display: 'flex', fontSize: 18, color: '#8a7a5a', marginBottom: displayTranslation ? 28 : 0 }}>
           Page {targetAyah.page} — {toArabicNumeral(targetAyah.page)}
         </div>
 

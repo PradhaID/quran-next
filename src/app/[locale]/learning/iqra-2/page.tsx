@@ -33,6 +33,30 @@ export default async function Iqra2Page({ params }: { params: Promise<{ locale: 
           <Link href="/learning" className="text-xs text-foreground/40 hover:text-primary transition-colors tracking-wider uppercase">
             &larr; {t('backToLearning')}
           </Link>
+          <div className="flex items-center justify-center gap-2">
+            <Link
+              href="/learning/iqra-2"
+              locale="en"
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                locale === 'en'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground/40 hover:text-foreground/60'
+              }`}
+            >
+              English
+            </Link>
+            <Link
+              href="/learning/iqra-2"
+              locale="id"
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                locale === 'id'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground/40 hover:text-foreground/60'
+              }`}
+            >
+              Indonesia
+            </Link>
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-primary dark:text-primary-light">
             {t('iqra2Title')}
           </h1>

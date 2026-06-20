@@ -21,6 +21,7 @@ export default async function Iqra5Page({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('LearningPage');
+  const lang = locale === 'id' ? 'id' : 'en';
 
   return (
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-4xl mx-auto w-full">
@@ -34,28 +35,85 @@ export default async function Iqra5Page({ params }: { params: Promise<{ locale: 
             {t('iqra5Title')}
           </h1>
           <p className="text-foreground/60 text-sm max-w-xl mx-auto">
-            Learn the rules of waqf (stopping) and mad (lengthening) to recite with proper pauses and rhythm.
+            {lang === 'id'
+              ? 'Pelajari waqaf (bacaan berhenti), mad (bacaan panjang), tanda-tanda waqaf di Al-Quran, dan mad wajib munfasil.'
+              : 'Learn waqf (stopping rules), mad (lengthening), stop signs in the Quran, and mad wajib munfasil.'}
           </p>
         </div>
 
-        {/* Mad Thabi'i */}
+        {/* Waqaf — Stopping */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 1: Mad Thabi\'i (Natural Lengthening)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 1: Waqaf (وقف) — Berhenti' : 'Lesson 1: Waqf (وقف) — Stopping'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            Lengthen the sound for 2 counts (harakat) when:
+            {lang === 'id'
+              ? 'Waqaf adalah berhenti membaca di akhir ayat atau di tengah ayat yang ditandai. Saat berhenti, harakat akhir diganti dengan sukun.'
+              : 'Waqf means to stop recitation at the end of an ayah or at a marked stopping point. When stopping, the final vowel becomes sukun (no vowel).'}
           </p>
-          <ul className="text-xs text-foreground/60 space-y-1 mb-4 list-disc pl-4">
-            <li>Fatha + alif (ا) — like <strong>بَا</strong> (bā)</li>
-            <li>Kasra + ya sukun (ي) — like <strong>بِي</strong> (bī)</li>
-            <li>Damma + waw sukun (و) — like <strong>بُو</strong> (bū)</li>
-          </ul>
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { a: 'قَالَ', r: 'qāla' },
-              { a: 'سَعَى', r: 'sa\'ā' },
-              { a: 'يَقُولُ', r: 'yaqūlu' },
-              { a: 'يَرْمِي', r: 'yarmī' },
-              { a: 'رَسُولٌ', r: 'rasūlun' },
+              { a: 'ثُمَّ نَظَرَ', r: 'thumma nazhara...' },
+              { a: 'ثُمَّ عَبَسَ', r: 'thumma abasa...' },
+              { a: 'ثُمَّ أَدْبَرَ', r: 'thumma adbara...' },
+              { a: 'ثُمَّ اسْتَكْبَرَ', r: 'thumma astakbara...' },
+              { a: 'وَقِيلَ', r: 'wa qīla (waqf)' },
+              { a: 'فَالْيَوْمَ', r: 'fal-yawma (waqf)' },
+              { a: 'وَلَا يُوثَقُ', r: 'wa lā yūthaqu (waqf)' },
+              { a: 'وَالسَّمَاءُ', r: 'was-samā\'u (waqf)' },
+            ].map((ex, i) => (
+              <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
+                <div className="text-xs text-foreground/60">{ex.r}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Waqaf Signs */}
+        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 2: Tanda-Tanda Waqaf' : 'Lesson 2: Waqf Stop Signs'}
+          </h2>
+          <div className="space-y-4">
+            {[
+              { sign: 'م', label: lang === 'id' ? 'Waqaf Lazim (Harus Berhenti)' : 'Waqf Lazim (Must Stop)', desc: lang === 'id' ? 'Jika tidak berhenti, makna berubah.' : 'If you don\'t stop here, the meaning changes.' },
+              { sign: 'ط', label: lang === 'id' ? 'Waqaf Mutlak (Lebih Baik Berhenti)' : 'Waqf Mutlak (Better to Stop)', desc: lang === 'id' ? 'Berhenti lebih utama.' : 'Stopping is preferred.' },
+              { sign: 'ج', label: lang === 'id' ? 'Waqaf Jaiz (Boleh Berhenti)' : 'Waqf Jaiz (Allowed to Stop)', desc: lang === 'id' ? 'Boleh berhenti, boleh lanjut.' : 'You may stop or continue.' },
+              { sign: 'صلي', label: lang === 'id' ? 'Al-Wasl Awla (Lebih Baik Lanjut)' : 'Al-Wasl Awla (Better to Continue)', desc: lang === 'id' ? 'Lebih baik melanjutkan.' : 'Continuing is preferred.' },
+              { sign: 'قف', label: lang === 'id' ? 'Qif (Harap Berhenti)' : 'Qif (Please Stop)', desc: lang === 'id' ? 'Disarankan berhenti — tanda khusus.' : 'It is advised to stop here.' },
+            ].map((sign, i) => (
+              <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="text-2xl font-arabic text-primary flex-shrink-0 w-12 text-center">{sign.sign}</div>
+                <div>
+                  <div className="font-medium text-foreground text-sm">{sign.label}</div>
+                  <div className="text-xs text-foreground/60">{sign.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mad — Lengthening */}
+        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 3: Mad (مد) — Bacaan Panjang' : 'Lesson 3: Mad (مد) — Lengthening'}
+          </h2>
+          <p className="text-xs text-foreground/60 mb-4">
+            {lang === 'id'
+              ? 'Mad berarti memanjangkan suara huruf. Tanda mad adalah garis kecil ~ (atau mim kecil) di atas huruf. Panjang bacaan: 2, 4, atau 6 ketukan.'
+              : 'Mad means lengthening the sound of a letter. The mad sign is a small wavy line ~ (or small mim) above the letter. Length: 2, 4, or 6 counts.'}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { a: 'قَالَ', r: 'qāla (2 counts)' },
+              { a: 'قِيلَ', r: 'qīla (2 counts)' },
+              { a: 'يَقُولُ', r: 'yaqūlu (2 counts)' },
+              { a: 'جَاءَ', r: 'jā\'a (4-5 counts)' },
+              { a: 'سُوءَ', r: 'sū\'a (4-5 counts)' },
+              { a: 'جِيءَ', r: 'jī\'a (4-5 counts)' },
+              { a: 'الْآنَ', r: 'al-āna (4-5 counts)' },
+              { a: 'أُولَٰئِكَ', r: 'ulā\'ika (4-5 counts)' },
             ].map((ex, i) => (
               <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
                 <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
@@ -65,42 +123,26 @@ export default async function Iqra5Page({ params }: { params: Promise<{ locale: 
           </div>
         </div>
 
-        {/* Mad Wajib Muttasil */}
+        {/* Mad Wajib Munfasil */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 2: Mad Wajib Muttasil (Connected Obligatory Mad)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 4: Mad Wajib Munfasil' : 'Lesson 4: Mad Wajib Munfasil'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When mad letters (ا ي و) are followed by hamzah (ء) in the same word, lengthen for 4-5 counts.
+            {lang === 'id'
+              ? 'Apabila huruf mad (ا و ي) bertemu hamzah (ء) di kata yang BERBEDA, dibaca panjang 4-5 ketukan. Contoh: يَا أَيُّهَا, قُوا أَنْفُسَكُمْ'
+              : 'When a mad letter (ا و ي) meets hamzah (ء) in a DIFFERENT word, lengthen 4-5 counts. Example: يَا أَيُّهَا, قُوا أَنْفُسَكُمْ'}
           </p>
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { a: 'جَاءَ', r: 'jā\'a (4-5)' },
-              { a: 'السَّمَاءُ', r: 'as-samā\'u' },
-              { a: 'بَدَأَ', r: 'bada\'a' },
-              { a: 'سُئِلَ', r: 'su\'ila' },
-              { a: 'يَشَاءُ', r: 'yasyā\'u' },
+              { a: 'يَا أَيُّهَا', r: 'yā ayyuhā' },
+              { a: 'إِنَّا أَنْزَلْنَا', r: 'innā anzalnā' },
+              { a: 'فِي أَمْرٍ', r: 'fī amrin' },
+              { a: 'قُوا أَنْفُسَكُمْ', r: 'qū anfusakum' },
+              { a: 'السَّمَاءَ أُمَّهَاتِهِمْ', r: 'as-samā\'a ummahātihim' },
+              { a: 'لَنَسْفَعًا بِالنَّاصِيَةِ', r: 'lanasfa\'an bin-nāsiyah' },
             ].map((ex, i) => (
               <div key={i} className="text-center p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200/50">
-                <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
-                <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mad Jaiz Munfasil */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 3: Mad Ja\'iz Munfasil (Separated Permissible Mad)</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When mad letters end one word and hamzah (ء) starts the next word, you may lengthen 4-5 counts or read 2 counts.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { a: 'بِمَا أَنْزَلَ', r: 'bimā anzala' },
-              { a: 'فِي أَرْضِ', r: 'fī ardhi' },
-              { a: 'لَا إِلٰهَ', r: 'lā ilāha' },
-              { a: 'يَا أَيُّهَا', r: 'yā ayyuhā' },
-            ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-200/50">
                 <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
                 <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
               </div>
@@ -108,73 +150,23 @@ export default async function Iqra5Page({ params }: { params: Promise<{ locale: 
           </div>
         </div>
 
-        {/* Mad Arid Lissukun */}
+        {/* Practice */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 4: Mad \'Arid Lissukun (Temporary Mad for Stopping)</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When stopping at the end of a word that ends with a mad letter, lengthen 2, 4, or 6 counts. This only applies when pausing, not when continuing.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <h2 className="font-semibold text-foreground mb-4">{t('practice')}</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { a: 'الرَّحِيمِ', r: 'ar-rahīm(i)' },
-              { a: 'الْعَالَمِينَ', r: 'al-\'ālamīn(a)' },
-              { a: 'الرَّحْمٰنِ', r: 'ar-rahmān(i)' },
-              { a: 'نَسْتَعِينُ', r: 'nasta\'īn(u)' },
+              { a: 'مَالِكِ يَوْمِ الدِّينِ', s: lang === 'id' ? 'Tanda waqaf, mad 2-4 ketukan' : 'Waqf signs, mad 2-4 counts' },
+              { a: 'إِيَّاكَ نَعْبُدُ', s: lang === 'id' ? 'Mad jaiz munfasil, waqaf' : 'Mad jaiz munfasil, waqf' },
+              { a: 'اهْدِنَا الصِّرَاطَ', s: lang === 'id' ? 'Alif lam syamsiyah + mad' : 'Alif lam syamsiyah + mad' },
+              { a: 'صِرَاطَ الَّذِينَ', s: lang === 'id' ? 'Mad + lam syamsiyah' : 'Mad + lam syamsiyah' },
+              { a: 'أَنْعَمْتَ عَلَيْهِمْ', s: lang === 'id' ? 'Mad asli, waqaf' : 'Original mad, waqf' },
+              { a: 'غَيْرِ الْمَغْضُوبِ', s: lang === 'id' ? 'Lam qamariyah, mad' : 'Lam qamariyah, mad' },
             ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200/50">
-                <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
-                <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
+              <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="text-lg font-arabic text-foreground mb-1">{ex.a}</div>
+                <div className="text-xs text-foreground/60">{ex.s}</div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Mad Layyin */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 5: Mad Layyin (Soft Lengthening)</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When ya (ي) or waw (و) have sukun and are preceded by a letter with fatha, pronounce them softly and lengthen slightly when stopping.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { a: 'بَيْتٌ', r: 'bayt(un)' },
-              { a: 'سَوْفَ', r: 'sawf(a)' },
-              { a: 'خَوْفٌ', r: 'khawf(un)' },
-              { a: 'شَيْءٌ', r: 'syay\'(un)' },
-              { a: 'عَيْنٌ', r: '\'ayn(un)' },
-              { a: 'لَيْلٌ', r: 'layl(un)' },
-            ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200/50">
-                <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
-                <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Waqf */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 6: Waqf (Stopping Rules)</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When stopping at the end of a word in the Quran:
-          </p>
-          <div className="space-y-3">
-            <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
-              <p className="text-sm font-medium mb-1">Rule 1: Last letter with sukun</p>
-              <p className="text-xs text-foreground/60">The last letter is read with sukun (no vowel).</p>
-            </div>
-            <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
-              <p className="text-sm font-medium mb-1">Rule 2: Ta Marbutah (ة → ه)</p>
-              <p className="text-xs text-foreground/60">The ة (ta marbutah) at the end becomes ه (ha) with sukun when stopping.</p>
-              <div className="mt-2 flex justify-center gap-4 font-arabic text-lg text-foreground/80">
-                <span>رَحْمَةٌ → رَحْمَهْ</span>
-                <span>نِعْمَةٌ → نِعْمَهْ</span>
-              </div>
-            </div>
-            <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
-              <p className="text-sm font-medium mb-1">Rule 3: Alif at the end</p>
-              <p className="text-xs text-foreground/60">When stopping on words ending with alif (ى ا), pronounce as a long &quot;ā&quot;.</p>
-            </div>
           </div>
         </div>
 

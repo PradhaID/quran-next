@@ -21,6 +21,7 @@ export default async function Iqra3Page({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('LearningPage');
+  const lang = locale === 'id' ? 'id' : 'en';
 
   return (
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-4xl mx-auto w-full">
@@ -34,15 +35,21 @@ export default async function Iqra3Page({ params }: { params: Promise<{ locale: 
             {t('iqra3Title')}
           </h1>
           <p className="text-foreground/60 text-sm max-w-xl mx-auto">
-            Learn sukun (no vowel), qalqalah (echo letters), and the basic alif lam (ال) prefix.
+            {lang === 'id'
+              ? 'Pelajari sukun (huruf mati), qalqalah (huruf mantul), dan alif lam (ال) sebagai awalan kata.'
+              : 'Learn sukun (no vowel), qalqalah (echo letters), and the basic alif lam (ال) prefix.'}
           </p>
         </div>
 
         {/* Sukun */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 1: Sukun (ْ) — No Vowel</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 1: Sukun (ْ) — Huruf Mati' : 'Lesson 1: Sukun (ْ) — No Vowel'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            A small circle above a letter means it has no vowel — stop the sound on that letter.
+            {lang === 'id'
+              ? 'Lingkaran kecil di atas huruf berarti huruf tersebut mati — hentikan bunyi pada huruf tersebut.'
+              : 'A small circle above a letter means it has no vowel — stop the sound on that letter.'}
           </p>
           <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
             {['أَبْ', 'أَتْ', 'أَثْ', 'أَجْ', 'أَحْ', 'أَخْ', 'أَدْ', 'أَذْ', 'أَرْ', 'أَزْ', 'أَسْ', 'أَشْ'].map((c, i) => (
@@ -56,7 +63,9 @@ export default async function Iqra3Page({ params }: { params: Promise<{ locale: 
 
         {/* Sukun in context */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 2: Words with Sukun</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 2: Kata dengan Sukun' : 'Lesson 2: Words with Sukun'}
+          </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
             {[
               { a: 'أَكْلٍ', r: 'aklin' },
@@ -82,21 +91,25 @@ export default async function Iqra3Page({ params }: { params: Promise<{ locale: 
 
         {/* Qalqalah */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 3: Qalqalah Letters (ق ط ب ج د)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 3: Huruf Qalqalah (ق ط ب ج د)' : 'Lesson 3: Qalqalah Letters (ق ط ب ج د)'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When these five letters have sukun, pronounce them with a slight bounce/echo: <strong>Qaf, Tha, Ba, Jim, Dal</strong>.
+            {lang === 'id'
+              ? 'Apabila lima huruf ini bersukun, bacalah dengan bunyi memantul: Qaf, Tha, Ba, Jim, Dal.'
+              : 'When these five letters have sukun, pronounce them with a slight bounce/echo: Qaf, Tha, Ba, Jim, Dal.'}
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
             {[
-              { a: 'قْ', name: 'Qaf', note: 'اَقْ' },
-              { a: 'طْ', name: 'Tha', note: 'اَطْ' },
-              { a: 'بْ', name: 'Ba', note: 'اَبْ' },
-              { a: 'جْ', name: 'Jim', note: 'اَجْ' },
-              { a: 'دْ', name: 'Dal', note: 'اَدْ' },
+              { a: 'اَقْ', name: 'Qaf', note: 'q' },
+              { a: 'اَطْ', name: 'Tha', note: 'th' },
+              { a: 'اَبْ', name: 'Ba', note: 'b' },
+              { a: 'اَجْ', name: 'Jim', note: 'j' },
+              { a: 'اَدْ', name: 'Dal', note: 'd' },
             ].map((q, i) => (
               <div key={i} className="text-center p-3 rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200/50 dark:border-blue-800/30">
-                <div className="text-3xl font-arabic text-foreground mb-1">{q.note}</div>
-                <div className="text-xs text-foreground/60">{q.name} ({q.a})</div>
+                <div className="text-3xl font-arabic text-foreground mb-1">{q.a}</div>
+                <div className="text-xs text-foreground/60">{q.name} ({q.note})</div>
               </div>
             ))}
           </div>
@@ -104,9 +117,13 @@ export default async function Iqra3Page({ params }: { params: Promise<{ locale: 
 
         {/* Alif Lam */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 4: Alif Lam (ال)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 4: Alif Lam (ال)' : 'Lesson 4: Alif Lam (ال)'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            The prefix ال (al) attaches to the beginning of nouns. The lam (ل) has sukun. Practice reading words with ال.
+            {lang === 'id'
+              ? 'Awalan ال (al) ditempelkan pada kata benda. Lam (ل) dibaca mati. Latih membaca kata dengan ال.'
+              : 'The prefix ال (al) attaches to the beginning of nouns. The lam (ل) has sukun. Practice reading words with ال.'}
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
             {[

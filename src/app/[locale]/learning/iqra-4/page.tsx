@@ -21,6 +21,7 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('LearningPage');
+  const lang = locale === 'id' ? 'id' : 'en';
 
   return (
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-4xl mx-auto w-full">
@@ -34,15 +35,21 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
             {t('iqra4Title')}
           </h1>
           <p className="text-foreground/60 text-sm max-w-xl mx-auto">
-            Master tasydid (shadda), lam jalalah (the name Allah), and the rules of alif lam qamariyah and syamsiyah.
+            {lang === 'id'
+              ? 'Kuasai tasydid (syaddah), lam jalalah (lafal Allah), serta hukum alif lam qamariyah dan syamsiyah.'
+              : 'Master tasydid (shadda), lam jalalah (the name Allah), and the rules of alif lam qamariyah and syamsiyah.'}
           </p>
         </div>
 
         {/* Tasydid */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 1: Tasydid (ّ) — Doubled Letter</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 1: Tasydid (ّ) — Huruf Ganda' : 'Lesson 1: Tasydid (ّ) — Doubled Letter'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            A small &quot;w&quot;-shaped mark (shadda) above a letter doubles it. Read the letter twice: once with sukun, once with the vowel.
+            {lang === 'id'
+              ? 'Tanda seperti huruf "w" kecil (syaddah) di atas huruf menggandakannya. Bacalah huruf dua kali: sekali dengan sukun, sekali dengan harakat.'
+              : 'A small "w"-shaped mark (shadda) above a letter doubles it. Read the letter twice: once with sukun, once with the vowel.'}
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
             {[
@@ -61,17 +68,23 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
           </div>
 
           <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/10">
-            <p className="text-sm font-medium text-foreground mb-2">How tasydid works:</p>
+            <p className="text-sm font-medium text-foreground mb-2">
+              {lang === 'id' ? 'Cara kerja tasydid:' : 'How tasydid works:'}
+            </p>
             <div dir="rtl" className="text-xl font-arabic text-foreground/80 text-center space-y-1">
               <div>إِنْ + نَ = إِنَّ</div>
-              <div className="text-xs text-foreground/60">(in + na = inna) — first with sukun, then with fatha</div>
+              <div className="text-xs text-foreground/60">
+                {lang === 'id' ? '(in + na = inna) — pertama sukun, lalu fathah' : '(in + na = inna) — first with sukun, then with fatha'}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Tasydid with vowels */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 2: Tasydid with Different Vowels</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 2: Tasydid dengan Berbagai Harakat' : 'Lesson 2: Tasydid with Different Vowels'}
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { a: 'رَبَّنَا', r: 'rabbanā' },
@@ -93,18 +106,22 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
 
         {/* Lam Jalalah */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 3: Lam Jalalah (اللَّه)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? "Pelajaran 3: Lam Jalalah (اللَّه)" : 'Lesson 3: Lam Jalalah (اللَّه)'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When reading the name <strong>اللَّه</strong> (Allah), the lam is pronounced full/thick (tafkhim) if preceded by a fatha or damma, and thin (tarqiq) if preceded by a kasra.
+            {lang === 'id'
+              ? 'Saat membaca lafal اللَّه (Allah), lam dibaca tebal (tafkhim) jika didahului fathah atau dhammah, dan tipis (tarqiq) jika didahului kasrah.'
+              : 'When reading the name اللَّه (Allah), the lam is pronounced full/thick (tafkhim) if preceded by a fatha or damma, and thin (tarqiq) if preceded by a kasra.'}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { a: 'اللَّهُ', r: 'Allāhu (thick)' },
-              { a: 'بِاللَّهِ', r: 'billāhi (thin)' },
-              { a: 'عَبْدُ اللَّهِ', r: 'abdu llāhi (thick)' },
-              { a: 'لِلَّهِ', r: 'lillāhi (thin)' },
-              { a: 'رَسُولُ اللَّهِ', r: 'rasūlu llāhi (thick)' },
-              { a: 'فِي اللَّهِ', r: 'fī llāhi (thin)' },
+              { a: 'اللَّهُ', r: lang === 'id' ? 'Allāhu (tebal)' : 'Allāhu (thick)' },
+              { a: 'بِاللَّهِ', r: lang === 'id' ? 'billāhi (tipis)' : 'billāhi (thin)' },
+              { a: 'عَبْدُ اللَّهِ', r: lang === 'id' ? 'abdu llāhi (tebal)' : 'abdu llāhi (thick)' },
+              { a: 'لِلَّهِ', r: lang === 'id' ? 'lillāhi (tipis)' : 'lillāhi (thin)' },
+              { a: 'رَسُولُ اللَّهِ', r: lang === 'id' ? 'rasūlu llāhi (tebal)' : 'rasūlu llāhi (thick)' },
+              { a: 'فِي اللَّهِ', r: lang === 'id' ? 'fī llāhi (tipis)' : 'fī llāhi (thin)' },
             ].map((ex, i) => (
               <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
                 <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
@@ -116,9 +133,13 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
 
         {/* Alif Lam Qamariyah */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 4: Alif Lam Qamariyah (الْقَمَرِيَّة)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 4: Alif Lam Qamariyah (الْقَمَرِيَّة)' : 'Lesson 4: Alif Lam Qamariyah (الْقَمَرِيَّة)'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            The lam of ال is pronounced clearly when followed by any of these 14 &quot;moon letters&quot;:
+            {lang === 'id'
+              ? 'Lam pada ال dibaca jelas apabila diikuti salah satu dari 14 "huruf qamariyah" (bulan) ini. Perhatikan bunyi "al-" tetap diucapkan.'
+              : 'The lam of ال is pronounced clearly when followed by any of these 14 "moon letters".'}
             <span className="block mt-1 font-arabic text-lg text-center text-foreground/80">أ ب ج ح خ ع غ ف ق ك م ه و ي</span>
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -148,9 +169,13 @@ export default async function Iqra4Page({ params }: { params: Promise<{ locale: 
 
         {/* Alif Lam Syamsiyah */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 5: Alif Lam Syamsiyah (الشَّمْسِيَّة)</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 5: Alif Lam Syamsiyah (الشَّمْسِيَّة)' : 'Lesson 5: Alif Lam Syamsiyah (الشَّمْسِيَّة)'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            The lam of ال is NOT pronounced (assimilated) when followed by any of these 14 &quot;sun letters&quot;. Instead, the following letter is doubled (tasydid):
+            {lang === 'id'
+              ? 'Lam pada ال tidak dibaca (lebur) apabila diikuti salah satu dari 14 "huruf syamsiyah" (matahari) ini. Huruf setelahnya dibaca ganda (tasydid).'
+              : 'The lam of ال is NOT pronounced (assimilated) when followed by any of these 14 "sun letters". Instead, the following letter is doubled (tasydid).'}
             <span className="block mt-1 font-arabic text-lg text-center text-foreground/80">ت ث د ذ ر ز س ش ص ض ط ظ ل ن</span>
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">

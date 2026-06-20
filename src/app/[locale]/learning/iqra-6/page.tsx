@@ -21,6 +21,7 @@ export default async function Iqra6Page({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('LearningPage');
+  const lang = locale === 'id' ? 'id' : 'en';
 
   return (
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-4xl mx-auto w-full">
@@ -34,80 +35,35 @@ export default async function Iqra6Page({ params }: { params: Promise<{ locale: 
             {t('iqra6Title')}
           </h1>
           <p className="text-foreground/60 text-sm max-w-xl mx-auto">
-            Complete the rules of nun sakinah and tanwin: idzhar, idgham, iqlab, and ikhfa. Learn to identify and apply these rules when reading the Quran.
+            {lang === 'id'
+              ? 'Sempurnakan bacaan dengan idgham, iqlab, ikhfa, ghunnah, dan bacaan ayat Al-Quran secara mahir.'
+              : 'Perfect your recitation with idgham, iqlab, ikhfa, ghunnah, and fluent reading of Quranic verses.'}
           </p>
         </div>
 
-        {/* Idzhar Halqi */}
+        {/* Idgham */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 1: Idzhar Halqi (إظهار حَلْقِي) — Clear Pronunciation</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 1: Idgham (إدغام) — Meleburkan' : 'Lesson 1: Idgham (إدغام) — Assimilation'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When nun sakinah (نْ) or tanwin (ًٌٍ) meets one of the six throat letters (<strong>ء ه ع ح غ خ</strong>), pronounce the nun/tanwin clearly without nasalization (ghunnah).
+            {lang === 'id'
+              ? 'Apabila nun sukun (نْ) atau tanwin bertemu salah satu huruf ي م و ن ر ل, nun sukun dileburkan ke huruf berikutnya (dengan ghunnah kecuali ل dan ر).'
+              : 'When nun sakinah (نْ) or tanwin meets one of the letters ي م و ن ر ل, the nun assimilates into the next letter (with ghunnah except for ل and ر).'}
+            <span className="block mt-1 font-arabic text-lg text-center text-foreground/80">ي ر م ل و ن</span>
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { a: 'مَنْ آمَنَ', r: 'man āmana' },
-              { a: 'مَنْ هَدَى', r: 'man hadā' },
-              { a: 'مَنْ عَمِلَ', r: 'man \'amila' },
-              { a: 'وَمَنْ حَاوَلَ', r: 'man hāwala' },
-              { a: 'مَنْ غَفَرَ', r: 'man ghafara' },
-              { a: 'مَنْ خَطِئَ', r: 'man khathi\'a' },
-              { a: 'غَفُورٌ رَّحِيمٌ', r: 'ghafūrun rahīmun' },
-              { a: 'سَمِيعٌ عَلِيمٌ', r: 'samī\'un \'alīmun' },
+              { a: 'مِنْ رَبِّهِمْ', r: 'mir rabbihim' },
+              { a: 'وَجَنَّاتٍ تَجْرِي', r: 'wa jannātin tajrī' },
+              { a: 'لَيْلَةُ الْقَدْرِ', r: 'laylatul qadr' },
+              { a: 'مِنْ وَلِيٍّ', r: 'miw waliyyin' },
+              { a: 'خَيْرًا مِّنْهُ', r: 'khayram minhu' },
+              { a: 'مِنْ نِعْمَةٍ', r: 'min ni\'matin' },
+              { a: 'فَاسْعَوْا إِلَىٰ', r: 'fas\'aw ilā (idgham mutajanisain)' },
+              { a: 'إِنْ يَقُولُونَ', r: 'in yaqulūna' },
             ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200/50">
-                <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
-                <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-3 p-3 rounded-xl bg-rose-50/50 dark:bg-rose-950/10 border border-rose-200/30">
-            <p className="text-xs text-foreground/60">
-              <strong>Throat letters (huruf halqiyyah):</strong>
-              <span className="block text-center font-arabic text-2xl text-foreground/80 mt-1">ء ه ع ح غ خ</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Idgham Bigunnah */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 2: Idgham Bi-Ghunnah (إدغام بغنة) — Merging with Nasalization</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When nun sakinah (نْ) or tanwin is followed by <strong>ي م و ن</strong>, merge the nun/tanwin into the next letter with nasalization (ghunnah) for 2 counts.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { a: 'مَنْ يَّقُولُ', r: 'may yaqūlu' },
-              { a: 'مَنْ مَّنَعَ', r: 'mam mana\'a' },
-              { a: 'مَنْ وَّجَدَ', r: 'maw wajada' },
-              { a: 'إِنْ نَّحْنُ', r: 'in nahnu' },
-              { a: 'مَثَلاً يَّضْرِبُ', r: 'masalay yadribu' },
-              { a: 'غَفُورٌ مَّجِيدٌ', r: 'ghafūrum majīdu' },
-            ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-200/50">
-                <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
-                <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Idgham Bila Ghunnah */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 3: Idgham Bila Ghunnah (إدغام بلا غنة) — Merging without Nasalization</h2>
-          <p className="text-xs text-foreground/60 mb-4">
-            When nun sakinah (نْ) or tanwin is followed by <strong>ل ر</strong>, merge the nun/tanwin into the next letter without nasalization.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { a: 'مَنْ لَّمْ', r: 'mal lam' },
-              { a: 'مَنْ رَّأَى', r: 'mar ra\'ā' },
-              { a: 'إِنْ لَّمْ', r: 'il lam' },
-              { a: 'بِئْسَ وَلَا رَهِينٌ', r: 'wa lā rahīnu' },
-              { a: 'هُدًى لِّلْمُتَّقِينَ', r: 'hudal lil-muttaqīna' },
-              { a: 'وَالْعَصْرِ إِنَّ', r: 'wal-\'asri inna' },
-            ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200/50">
+              <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
                 <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
                 <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
               </div>
@@ -117,20 +73,27 @@ export default async function Iqra6Page({ params }: { params: Promise<{ locale: 
 
         {/* Iqlab */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 4: Iqlab (إقلاب) — Conversion</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 2: Iqlab (إقلاب) — Mengubah' : 'Lesson 2: Iqlab (إقلاب) — Conversion'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When nun sakinah (نْ) or tanwin is followed by <strong>ب (ba)</strong>, the nun sound converts to a nasalized <strong>mim (م)</strong> sound with ghunnah.
+            {lang === 'id'
+              ? 'Apabila nun sukun (نْ) atau tanwin bertemu huruf ب (ba), nun berubah (iqlab) menjadi bunyi mim (م) samar disertai ghunnah.'
+              : 'When nun sakinah (نْ) or tanwin meets the letter ب (ba), the nun converts (iqlab) into a hidden meem (م) sound with ghunnah.'}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { a: 'مِنْ بَعْدِ', r: 'mim ba\'di' },
-              { a: 'مَنْ بَشَرٍ', r: 'mam basyarin' },
-              { a: 'سَمِيعٌ بَصِيرٌ', r: 'samī\'um bashīru' },
-              { a: 'عَلِيمٌ بِذَاتِ', r: '\'alīmum bidzāti' },
+              { a: 'مِنْ بَعْدِهِمْ', r: 'mim ba\'dihim' },
+              { a: 'خُلِقَ مِنْ بَحْمَةٍ', r: 'khuliqa min bahmatin' },
+              { a: 'سَمِيعٌ بَصِيرٌ', r: 'samī\'um basīrun' },
+              { a: 'عَلِيمٌ بِذَاتِ', r: 'alīmun bidzāti' },
             ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-brown-50 dark:bg-amber-950/20 border border-amber-200/50">
+              <div key={i} className="text-center p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200/50">
                 <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
                 <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
+                <div className="text-xs text-foreground/40 mt-1">
+                  {lang === 'id' ? 'نْ atau tanwin → bunyi م' : 'نْ or tanwin → م sound'}
+                </div>
               </div>
             ))}
           </div>
@@ -138,28 +101,27 @@ export default async function Iqra6Page({ params }: { params: Promise<{ locale: 
 
         {/* Ikhfa */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 5: Ikhfa Haqiqi (إخفاء حقيقي) — Hidden Pronunciation</h2>
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 3: Ikhfa (إخفاء) — Menyamar' : 'Lesson 3: Ikhfa (إخفاء) — Hidden'}
+          </h2>
           <p className="text-xs text-foreground/60 mb-4">
-            When nun sakinah (نْ) or tanwin is followed by any of the remaining 15 letters, pronounce the nun/tanwin in a hidden/nasalized way between idzhar and idgham.
+            {lang === 'id'
+              ? 'Apabila nun sukun (نْ) atau tanwin bertemu salah satu dari 15 huruf ikhfa, nun dibaca samar antara jelas dan lebur disertai ghunnah.'
+              : 'When nun sakinah (نْ) or tanwin meets any of the 15 ikhfa letters, the nun is pronounced hidden — between clear and assimilated — with ghunnah.'}
+            <span className="block mt-1 font-arabic text-lg text-center text-foreground/80">
+              ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك
+            </span>
           </p>
-          <div className="p-3 rounded-xl bg-green-50 dark:bg-green-950/10 border border-green-200/30 mb-4">
-            <p className="text-xs text-foreground/60 text-center">
-              <strong>Ikhfa letters (15 huruf):</strong>
-              <span className="block text-center font-arabic text-xl text-foreground/80 mt-1">ص ذ ث ك ج ش ق س د ط ز ف ت ض ظ</span>
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { a: 'مِنْ صَدَقَةٍ', r: 'min shadaqatin' },
-              { a: 'مَنْ ذَبَحَ', r: 'man dzabaha' },
-              { a: 'مِنْ ثَمَرَةٍ', r: 'min tsamaratin' },
-              { a: 'مِنْ كِتَابٍ', r: 'min kitābin' },
-              { a: 'مِنْ جِبَالٍ', r: 'min jibālin' },
-              { a: 'مَنْ شَكَرَ', r: 'man syakara' },
-              { a: 'مَنْ قَالَ', r: 'man qāla' },
-              { a: 'مِنْ دَابَّةٍ', r: 'min dābbatin' },
+              { a: 'مِنْ تَحْتِهَا', r: 'min tahtihā' },
+              { a: 'أَنْذَرْتَهُمْ', r: 'andzartahum' },
+              { a: 'عَنْ صَلَاتِهِمْ', r: 'an shalātihim' },
+              { a: 'مِنْ قَبْلُ', r: 'min qablu' },
+              { a: 'أَنْفُسَهُمْ', r: 'anfusahum' },
+              { a: 'مِنْ شَيْءٍ', r: 'min syay\'in' },
             ].map((ex, i) => (
-              <div key={i} className="text-center p-3 rounded-xl bg-green-50 dark:bg-green-950/20 border border-green-200/50">
+              <div key={i} className="text-center p-3 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200/50">
                 <div className="text-xl font-arabic text-foreground mb-1">{ex.a}</div>
                 <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
               </div>
@@ -167,64 +129,82 @@ export default async function Iqra6Page({ params }: { params: Promise<{ locale: 
           </div>
         </div>
 
-        {/* Summary Table */}
+        {/* Ghunnah */}
         <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">Lesson 6: Complete Rule Summary</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-black/10 dark:border-white/10">
-                  <th className="text-left py-2 pr-4 font-semibold text-foreground">Rule</th>
-                  <th className="text-left py-2 pr-4 font-semibold text-foreground">Letter(s)</th>
-                  <th className="text-left py-2 font-semibold text-foreground">Pronunciation</th>
-                </tr>
-              </thead>
-              <tbody className="text-foreground/60">
-                {[
-                  { rule: 'Idzhar', letters: 'ء ه ع ح غ خ', pron: 'Clear nun/tanwin, no ghunnah' },
-                  { rule: 'Idgham Bigunnah', letters: 'ي م و ن', pron: 'Merged with ghunnah (2 counts)' },
-                  { rule: 'Idgham Bila Ghunnah', letters: 'ل ر', pron: 'Merged without ghunnah' },
-                  { rule: 'Iqlab', letters: 'ب', pron: 'Nun → mim sound with ghunnah' },
-                  { rule: 'Ikhfa', letters: 'ص ذ ث ك ج ش ق س د ط ز ف ت ض ظ', pron: 'Hidden/nasalized, between idzhar & idgham' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-black/5 dark:border-white/5">
-                    <td className="py-2 pr-4 font-medium text-foreground">{row.rule}</td>
-                    <td className="py-2 pr-4 font-arabic text-lg">{row.letters}</td>
-                    <td className="py-2">{row.pron}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Final practice */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
-          <h2 className="font-semibold text-foreground mb-4">{t('practice')}: Reading Quranic Verses</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 4: Ghunnah (غُنَّة) — Dengung' : 'Lesson 4: Ghunnah (غُنَّة) — Nasalization'}
+          </h2>
+          <p className="text-xs text-foreground/60 mb-4">
+            {lang === 'id'
+              ? 'Ghunnah adalah bunyi dengung dari hidung yang dihasilkan saat mengucapkan nun (ن) atau mim (م) yang bertasydid. Panjang ghunnah adalah 2 ketukan.'
+              : 'Ghunnah is the nasal sound from the nose produced when pronouncing a shadda-d meem (مّ) or noon (نّ). Ghunnah lasts 2 counts.'}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { a: 'قُلْ هُوَ اللَّهُ أَحَدٌ', r: 'Al-Ikhlas 112:1' },
-              { a: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', r: 'Al-Fatiha 1:2' },
-              { a: 'الرَّحْمَٰنِ الرَّحِيمِ', r: 'Al-Fatiha 1:3' },
-              { a: 'مَالِكِ يَوْمِ الدِّينِ', r: 'Al-Fatiha 1:4' },
+              { a: 'إِنَّ', r: 'in-na (ghunnah)' },
+              { a: 'أَمَّنْ', r: 'am-man (ghunnah)' },
+              { a: 'ثُمَّ', r: 'tsum-ma (ghunnah)' },
+              { a: 'عَنَّا', r: 'an-nā (ghunnah)' },
+              { a: 'مِمَّا', r: 'mim-mā (ghunnah)' },
+              { a: 'يَمُنُّ', r: 'yamunnu (ghunnah)' },
+              { a: 'وَلَا الضَّالِّينَ', r: 'walaḍ ḍāllīn (lam tasydid)' },
+              { a: 'أَنْعَمْتَ', r: 'an-amta (ikhfa)' },
             ].map((ex, i) => (
-              <div key={i} className="text-center p-4 rounded-xl bg-primary/5 border border-primary/10">
-                <div className="text-2xl font-arabic text-foreground mb-1 leading-loose">{ex.a}</div>
+              <div key={i} className="text-center p-3 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="text-2xl font-arabic text-foreground mb-1">{ex.a}</div>
                 <div className="text-xs text-foreground/60 font-medium">{ex.r}</div>
               </div>
             ))}
           </div>
-          <p className="text-xs text-foreground/60 mt-4 text-center">
-            You have completed all 6 levels of Iqra! Now you can read the Quran with proper tajweed. Continue practicing by reading directly from the Quran pages.
+        </div>
+
+        {/* Full Verses Practice */}
+        <div className="p-6 rounded-2xl bg-white dark:bg-surface-dark border border-black/5 dark:border-white/5">
+          <h2 className="font-semibold text-foreground mb-4">
+            {lang === 'id' ? 'Pelajaran 5: Bacaan Ayat Penuh' : 'Lesson 5: Full Verse Recitation'}
+          </h2>
+          <p className="text-xs text-foreground/60 mb-4">
+            {lang === 'id'
+              ? 'Terapkan semua hukum di atas dalam ayat-ayat pendek Al-Quran.' : 'Apply all the above rules in short Quranic verses.'}
           </p>
+          <div className="space-y-4">
+            {[
+              {
+                a: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+                n: lang === 'id' ? 'Ayat 1 — Basmalah' : 'Verse 1 — Basmalah',
+                s: lang === 'id' ? 'Lam qamariyah (الرَّحْمٰن & الرَّحِيم), mad asli, lam jalalah tipis & tebal' : 'Lam qamariyah (الرَّحْمٰن & الرَّحِيم), basic mad, lam jalalah thin & thick',
+              },
+              {
+                a: 'يَٰٓأَيُّهَا ٱلنَّاسُ ٱتَّقُوا۟ رَبَّكُمُ ٱلَّذِى خَلَقَكُم',
+                n: lang === 'id' ? 'Ayat pendek — berbagai hukum' : 'Short verse — various rules',
+                s: lang === 'id' ? 'Mad wajib munfasil, mad asli, tasydid, lam syamsiyah (النَّاسُ), qamariyah (ٱلَّذِى)' : 'Mad wajib munfasil, basic mad, tasydid, lam syamsiyah (النَّاسُ), qamariyah (ٱلَّذِى)',
+              },
+              {
+                a: 'قُلْ هُوَ ٱللَّهُ أَحَدٌ',
+                n: lang === 'id' ? 'Surah Al-Ikhlas ayat 1' : 'Surah Al-Ikhlas verse 1',
+                s: lang === 'id' ? 'Qalqalah (قُلْ), lam jalalah tebal, tanwin bertemu hamzah (أحد) — izhar halqi' : 'Qalqalah (قُلْ), thick lam jalalah, tanwin meets hamzah — izhar halqi',
+              },
+              {
+                a: 'لَمْ يَلِدْ وَلَمْ يُولَدْ',
+                n: lang === 'id' ? 'Ayat 3' : 'Verse 3',
+                s: lang === 'id' ? 'Sukun, mad asli (يُولَدْ), qalqalah sugra pada د' : 'Sukun, basic mad (يُولَدْ), small qalqalah on د',
+              },
+            ].map((v, i) => (
+              <div key={i} className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+                <div className="text-xl font-arabic text-foreground text-center mb-2 leading-loose">{v.a}</div>
+                <div className="text-xs font-medium text-foreground/70">{v.n}</div>
+                <div className="text-xs text-foreground/50 mt-0.5">{v.s}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex justify-between pt-4">
           <Link href="/learning/iqra-5" className="px-6 py-3 rounded-full text-sm font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
             &larr; {t('prevLevel')}
           </Link>
-          <Link href="/1:1" className="px-8 py-3 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 transition-colors">
-            Read the Quran &rarr;
+          <Link href="/learning" className="px-6 py-3 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 transition-colors">
+            {t('finishLearning')} &rarr;
           </Link>
         </div>
       </section>

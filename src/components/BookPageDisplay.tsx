@@ -124,7 +124,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
   }, [pinnedId, onUnpinAyah]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full mx-auto">
       <div data-ayah-content="true" className="relative bg-[#faf6ef] dark:bg-[#1a1625] rounded-2xl border border-[#e0d5c0] dark:border-[#2a2535] shadow-lg shadow-black/[0.04] overflow-hidden">
         <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#d4c9b4] dark:border-[#3a3545] rounded-tl-2xl" />
         <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#d4c9b4] dark:border-[#3a3545] rounded-tr-2xl" />

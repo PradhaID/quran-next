@@ -29,7 +29,7 @@ export default async function Iqra2Page({ params }: { params: Promise<{ locale: 
   const lang = locale === 'id' ? 'id' : 'en';
 
   return (
-    <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-4xl mx-auto w-full">
+    <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-7xl mx-auto w-full">
       <SiteNav locale={locale} current="learning" />
       <section className="w-full space-y-8">
         <div className="text-center space-y-3">

@@ -13,6 +13,7 @@
   },
   "Navigation": {
     "home": "Home",
+    "learning": "Learn",
     "about": "About",
     "howTo": "How to Use",
     "settings": "Settings"
@@ -84,5 +85,28 @@
     "sidebarFeaturesDesc": "The sidebar (open by tapping the hamburger icon on mobile) gives you access to: language switching, verse translation, note taking, saved notes list, surah search, surah/ayah navigation, Arabic font size controls, surahs on the current page, and a tajweed color guide.",
     "tajweedGuide": "Tajweed Guide",
     "tajweedGuideDesc": "Click \"Tajweed Guide\" in the sidebar to expand the color legend. Each color represents a different tajweed rule to help you pronounce the Quran correctly."
+  },
+  "LearningPage": {
+    "title": "Learn to Read the Quran",
+    "description": "Master Arabic reading step by step with the Iqra method. Start from the basics of Hijaiyah letters and progress through all six levels.",
+    "startLearning": "Start Learning",
+    "level": "Level {number}",
+    "iqra1Title": "Iqra 1 — Hijaiyah Letters",
+    "iqra1Desc": "Introduction to the 29 Arabic letters with the fatha (a) vowel",
+    "iqra2Title": "Iqra 2 — Vowels & Tanwin",
+    "iqra2Desc": "Kasra (i), damma (u), long vowels, and tanwin (double vowels)",
+    "iqra3Title": "Iqra 3 — Sukun & Qalqalah",
+    "iqra3Desc": "Sukun (no vowel), qalqalah letters, and basic tajweed",
+    "iqra4Title": "Iqra 4 — Tasydid & Lam Jalalah",
+    "iqra4Desc": "Shadda (doubled letter), lam jalalah, and alif lam rules",
+    "iqra5Title": "Iqra 5 — Waqf & Mad",
+    "iqra5Desc": "Stopping rules and lengthening (mad) in recitation",
+    "iqra6Title": "Iqra 6 — Tajweed Rules",
+    "iqra6Desc": "Idzhar, idgham, iqlab, ikhfa — complete nun sakinah & tanwin rules",
+    "nextLevel": "Next Level",
+    "prevLevel": "Previous Level",
+    "backToLearning": "Back to Learning",
+    "practice": "Practice",
+    "lesson": "Lesson"
   }
 }

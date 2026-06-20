@@ -3,7 +3,7 @@ import { Link } from '@/i18n/routing';
 
 interface SiteNavProps {
   locale: string;
-  current?: 'home' | 'about' | 'how-to';
+  current?: 'home' | 'about' | 'how-to' | 'learning';
 }
 
 export default async function SiteNav({ locale, current }: SiteNavProps) {
@@ -11,6 +11,7 @@ export default async function SiteNav({ locale, current }: SiteNavProps) {
 
   const links = [
     { key: 'home', href: '/', label: t('home') },
+    { key: 'learning', href: '/learning', label: t('learning') },
     { key: 'about', href: '/about', label: t('about') },
     { key: 'how-to', href: '/how-to', label: t('howTo') },
   ] as const;

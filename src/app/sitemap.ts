@@ -3,7 +3,18 @@ import { TOTAL_SURAHS } from '@/lib/quranApi';
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
 
-const staticPages = ['', '/about', '/how-to'];
+const staticPages = [
+  '',
+  '/about',
+  '/how-to',
+  '/learning',
+  '/learning/iqra-1',
+  '/learning/iqra-2',
+  '/learning/iqra-3',
+  '/learning/iqra-4',
+  '/learning/iqra-5',
+  '/learning/iqra-6',
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];

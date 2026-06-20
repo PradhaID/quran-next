@@ -13,6 +13,7 @@
   },
   "Navigation": {
     "home": "Beranda",
+    "learning": "Belajar",
     "about": "Tentang",
     "howTo": "Cara Menggunakan",
     "settings": "Pengaturan"
@@ -84,5 +85,28 @@
     "sidebarFeaturesDesc": "Panel samping (buka dengan mengetuk ikon hamburger di mobile) memberi Anda akses ke: penggantian bahasa, terjemahan ayat, pembuatan catatan, daftar catatan tersimpan, pencarian surah, navigasi surah/ayat, kontrol ukuran huruf Arab, surah di halaman saat ini, dan panduan warna tajwid.",
     "tajweedGuide": "Panduan Tajwid",
     "tajweedGuideDesc": "Klik \"Panduan Tajwid\" di panel samping untuk memperluas legenda warna. Setiap warna mewakili aturan tajwid yang berbeda untuk membantu Anda melafalkan Al-Quran dengan benar."
+  },
+  "LearningPage": {
+    "title": "Belajar Membaca Al-Quran",
+    "description": "Kuasai membaca huruf Arab langkah demi langkah dengan metode Iqra. Mulai dari dasar huruf Hijaiyah hingga enam level secara bertahap.",
+    "startLearning": "Mulai Belajar",
+    "level": "Level {number}",
+    "iqra1Title": "Iqra 1 — Huruf Hijaiyah",
+    "iqra1Desc": "Pengenalan 29 huruf Arab dengan harakat fathah (a)",
+    "iqra2Title": "Iqra 2 — Harakat & Tanwin",
+    "iqra2Desc": "Kasrah (i), dhammah (u), mad thabi'i, dan tanwin",
+    "iqra3Title": "Iqra 3 — Sukun & Qalqalah",
+    "iqra3Desc": "Sukun (mati), huruf qalqalah, dan tajwid dasar",
+    "iqra4Title": "Iqra 4 — Tasydid & Lam Jalalah",
+    "iqra4Desc": "Syaddah (huruf ganda), lam jalalah, dan alif lam",
+    "iqra5Title": "Iqra 5 — Waqaf & Mad",
+    "iqra5Desc": "Hukum berhenti dan bacaan panjang (mad) dalam tilawah",
+    "iqra6Title": "Iqra 6 — Hukum Tajwid",
+    "iqra6Desc": "Idzhar, idgham, iqlab, ikhfa — lengkap hukum nun mati & tanwin",
+    "nextLevel": "Level Selanjutnya",
+    "prevLevel": "Level Sebelumnya",
+    "backToLearning": "Kembali ke Belajar",
+    "practice": "Latihan",
+    "lesson": "Pelajaran"
   }
 }

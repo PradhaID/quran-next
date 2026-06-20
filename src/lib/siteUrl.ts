@@ -32,7 +32,7 @@ export function ogImage(locale: string) {
   return {
     images: [
       {
-        url: locale === 'id' ? '/img/featured-id.webp' : '/img/featured-en.webp',
+        url: locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif',
         width: 1200,
         height: 630,
       },

@@ -47,9 +47,10 @@ export default async function Image() {
             fontWeight: 700,
             fontFamily: 'Noto Naskh Arabic',
             marginBottom: 12,
+            direction: 'rtl',
           }}
         >
-          {ArabicShaper.convertArabic('القرآن').split('').reverse().join('')}
+          {ArabicShaper.convertArabic('القرآن')}
         </div>
         <div
           style={{

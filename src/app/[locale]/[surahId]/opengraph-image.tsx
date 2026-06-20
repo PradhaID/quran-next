@@ -40,9 +40,8 @@ function getArabicLines(text: string, fontSize: number): string[] {
     lines.push(currentLine);
   }
 
-  // Reverse the order of lines to make it render RTL in LTR layout engine
-  // but keep each line's content intact to preserve punctuation position
-  return lines.reverse();
+  // Keep lines in original order for proper RTL rendering
+  return lines;
 }
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
@@ -178,6 +177,7 @@ export default async function Image({
                 textAlign: 'center',
                 lineHeight: arabicLength > 150 ? 1.6 : 2,
                 fontFamily: 'Noto Naskh Arabic',
+                direction: 'rtl',
               }}
             >
               {line}

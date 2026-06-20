@@ -41,6 +41,30 @@ export default async function LearningPage({
       <SiteNav locale={locale} current="learning" />
       <section className="w-full space-y-10">
         <div className="text-center space-y-4">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Link
+              href="/learning"
+              locale="en"
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                locale === 'en'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground/40 hover:text-foreground/60'
+              }`}
+            >
+              English
+            </Link>
+            <Link
+              href="/learning"
+              locale="id"
+              className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                locale === 'id'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-foreground/40 hover:text-foreground/60'
+              }`}
+            >
+              Indonesia
+            </Link>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-primary dark:text-primary-light">
             {t('title')}
           </h1>

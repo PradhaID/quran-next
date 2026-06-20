@@ -62,16 +62,6 @@ export default async function HomePage({
         />
       </section>
 
-      {/* Language Switcher */}
-      <div className="flex justify-center gap-4 mb-10">
-        <Link href="/" locale="en" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'en' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
-          English
-        </Link>
-        <Link href="/" locale="id" className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${locale === 'id' ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}>
-          Indonesia
-        </Link>
-      </div>
-
       {/* Read by Page CTA */}
       <div className="w-full mb-8">
           <Link

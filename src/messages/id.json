@@ -9,7 +9,9 @@
       "Meccan": "Makkiyah",
       "Medinan": "Madaniyah"
     },
-    "ayahs": "{count} Ayat"
+    "ayahs": "{count} Ayat",
+    "startReading": "Mulai Membaca",
+    "readByPageDesc": "Baca Al-Quran halaman demi halaman"
   },
   "Navigation": {
     "home": "Beranda",

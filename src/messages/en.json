@@ -9,7 +9,9 @@
       "Meccan": "Meccan",
       "Medinan": "Medinan"
     },
-    "ayahs": "{count} Ayahs"
+    "ayahs": "{count} Ayahs",
+    "startReading": "Start Reading",
+    "readByPageDesc": "Read the Quran page by page"
   },
   "Navigation": {
     "home": "Home",

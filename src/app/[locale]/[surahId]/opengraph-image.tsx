@@ -11,8 +11,45 @@ function toArabicNumeral(n: number): string {
   return String(n).replace(/\d/g, d => EASTERN_DIGITS[parseInt(d, 10)]);
 }
 
-function getArabicLines(text: string, fontSize: number): string[] {
-  const reshaped = ArabicShaper.convertArabic(text);
+const TRANSPARENT_CHARS = new Set([
+  0x0610, 0x0612, 0x0613, 0x0614, 0x0615,
+  0x064B, 0x064C, 0x064D, 0x064E, 0x064F, 0x0650, 0x0651, 0x0652,
+  0x0653, 0x0654, 0x0655, 0x0656, 0x0657, 0x0658, 0x0670,
+  0x06D6, 0x06D7, 0x06D8, 0x06D9, 0x06DA, 0x06DB, 0x06DC,
+  0x06DF, 0x06E0, 0x06E1, 0x06E2, 0x06E3, 0x06E4,
+  0x06E7, 0x06E8, 0x06EA, 0x06EB, 0x06EC, 0x06ED,
+]);
+
+function reverseArabicLine(line: string): string {
+  const clusters: string[] = [];
+  let current = '';
+  for (const ch of line) {
+    if (TRANSPARENT_CHARS.has(ch.charCodeAt(0)) && current) {
+      current += ch;
+    } else {
+      if (current) clusters.push(current);
+      current = ch;
+    }
+  }
+  if (current) clusters.push(current);
+  return clusters.reverse().join('');
+}
+
+const BISMILLAH = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+
+function stripBismillah(text: string): string {
+  if (!text.startsWith(BISMILLAH)) return text;
+  const rest = text.slice(BISMILLAH.length);
+  return rest.startsWith(' ') ? rest.slice(1) : rest;
+}
+
+function getArabicLines(text: string, surahNum: number, ayahNum: number, fontSize: number): string[] {
+  let displayText = text;
+  if (ayahNum === 1 && surahNum !== 1 && surahNum !== 9) {
+    displayText = stripBismillah(text);
+  }
+  
+  const reshaped = ArabicShaper.convertArabic(displayText);
   
   // Calculate average characters per line based on font size
   let maxChars = 85;
@@ -40,8 +77,8 @@ function getArabicLines(text: string, fontSize: number): string[] {
     lines.push(currentLine);
   }
 
-  // Reverse each line to make it render RTL in LTR layout engine
-  return lines.map(line => line.split('').reverse().join(''));
+  // Reverse each line by grapheme clusters to render RTL in LTR engine
+  return lines.map(line => reverseArabicLine(line));
 }
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
@@ -123,7 +160,7 @@ export default async function Image({
     ? cleanTranslation.substring(0, 220) + '...'
     : cleanTranslation;
 
-  const arabicLines = getArabicLines(targetAyah.text, arabicFontSize);
+  const arabicLines = getArabicLines(targetAyah.text, surahNum, targetAyah.numberInSurah, arabicFontSize);
 
   const name = locale === 'id'
     ? (surah as any).name_latin || surah.englishName

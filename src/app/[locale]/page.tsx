@@ -53,8 +53,8 @@ export default async function HomePage({
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-7xl mx-auto w-full">
       <SiteNav locale={locale} current="home" />
       
-      {/* Hero Section — full width */}
-      <section className="mx-[calc(-50vw+50%)] w-screen mb-8" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
+      {/* Hero Section */}
+      <section className="w-full mb-6 rounded-2xl overflow-hidden" style={{ aspectRatio: '1200/630', maxHeight: 400 }}>
         <img
           src={locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif'}
           alt=""

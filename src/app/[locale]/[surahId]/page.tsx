@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: {
   }
 
   const [surah, translationData] = await Promise.all([
-    getSurah(surahNum),
+    getSurah(surahNum, locale),
     getSurahTranslation(surahNum, locale).catch(() => null),
   ]);
 
@@ -83,7 +83,7 @@ export default async function SurahPage({
     notFound();
   }
 
-  const surahData = await getSurah(surahNum);
+  const surahData = await getSurah(surahNum, locale);
   const targetAyah = ayahNum
     ? surahData.ayahs.find(a => a.numberInSurah === ayahNum)
     : surahData.ayahs[0];

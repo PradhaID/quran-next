@@ -23,6 +23,13 @@ export function buildOpenGraph(
   return {
     type: 'website',
     url: pageUrl(path, locale),
+    images: [
+      {
+        url: locale === 'id' ? '/img/featured-id.webp' : '/img/featured-en.webp',
+        width: 1200,
+        height: 630,
+      },
+    ],
     ...fields,
   };
 }

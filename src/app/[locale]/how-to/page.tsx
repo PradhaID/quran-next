@@ -1,6 +1,7 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import SiteNav from '@/components/SiteNav';
+import { pageUrl } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: {
@@ -10,7 +11,10 @@ export async function generateMetadata({ params }: {
   const t = await getTranslations({ locale, namespace: 'HowToPage' });
   return {
     title: t('title'),
-    openGraph: { description: t('title') },
+    openGraph: {
+      description: t('title'),
+      url: pageUrl('/how-to', locale),
+    },
     twitter: { description: t('title') },
   };
 }

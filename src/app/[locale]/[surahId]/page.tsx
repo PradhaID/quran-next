@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getSurah, getPage, getPageTranslation, getSurahTranslation, getAllSurahs, TOTAL_SURAHS, TOTAL_PAGES } from '@/lib/quranApi';
 import QuranReader from '@/components/QuranReader';
 import SiteNav from '@/components/SiteNav';
+import { pageUrl } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: {
@@ -57,6 +58,7 @@ export async function generateMetadata({ params }: {
     openGraph: {
       title,
       description,
+      url: pageUrl(surahId, locale),
     },
     twitter: {
       title,

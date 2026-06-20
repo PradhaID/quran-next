@@ -2,6 +2,7 @@ import {getTranslations, setRequestLocale} from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import SiteNav from '@/components/SiteNav';
 import SwipeNavigator from '@/components/SwipeNavigator';
+import { pageUrl } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: {
@@ -12,7 +13,10 @@ export async function generateMetadata({ params }: {
   return {
     title: t('title'),
     description: t('description'),
-    openGraph: { description: t('description') },
+    openGraph: {
+      description: t('description'),
+      url: pageUrl('/about', locale),
+    },
     twitter: { description: t('description') },
   };
 }

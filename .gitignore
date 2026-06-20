@@ -37,3 +37,6 @@ next-env.d.ts
 
 ecosystem.config.js
 deploy.sh
+
+.venv
+.vscode

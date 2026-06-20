@@ -2,6 +2,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import { SITE_URL } from '@/lib/siteUrl';
 import type { Metadata, Viewport } from 'next';
 import { Inter, Amiri } from 'next/font/google';
 import "../globals.css";
@@ -27,10 +28,8 @@ export async function generateMetadata({ params }: {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'HomePage' });
 
-  const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://quran.pradha.id';
-
   return {
-    metadataBase: new URL(BASE),
+    metadataBase: new URL(SITE_URL),
     title: {
       template: `%s | ${t('title')}`,
       default: t('title'),
@@ -39,6 +38,7 @@ export async function generateMetadata({ params }: {
     openGraph: {
       title: { template: `%s | ${t('title')}`, default: t('title') },
       description: t('description'),
+      type: 'website',
     },
   };
 }

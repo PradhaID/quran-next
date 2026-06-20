@@ -64,10 +64,10 @@ export default function SurahTable({ surahs, locale, revelationLabels }: Props) 
           />
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-auto max-h-[calc(100vh-18rem)]">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-[0.15em] text-foreground/40 bg-primary/[0.02]">
+          <tr className="text-left text-[10px] uppercase tracking-[0.15em] text-foreground/40 bg-[#f0ebe0] dark:bg-[#1a1625] sticky top-0 z-10">
             <th className="py-4 px-4 font-semibold">#</th>
             <th className="py-4 px-4 font-semibold">Surah</th>
             <th className="py-4 px-4 font-semibold hidden md:table-cell">Translation</th>

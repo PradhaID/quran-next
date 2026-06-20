@@ -126,8 +126,9 @@ export default function QuranReader({
   const navNextHref = nextPageFirst?.surah ? `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}` : null;
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col min-h-screen">
       {children}
+      <div className="flex flex-1">
       <SwipeNavigator prevHref={navPrevHref} nextHref={navNextHref}>
       <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-full md:max-w-3xl mx-auto w-full gap-2 md:gap-2">
         <BookPageDisplay
@@ -182,6 +183,7 @@ export default function QuranReader({
         pinnedTranslation={pinnedTranslation}
         onUnpinAyah={unpinAyah}
       />
+      </div>
     </div>
   );
 }

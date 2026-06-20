@@ -2,9 +2,10 @@ interface SurahHeaderProps {
   name: string;
   englishName: string;
   number: number;
+  translationName?: string;
 }
 
-export default function SurahHeader({ name, englishName, number }: SurahHeaderProps) {
+export default function SurahHeader({ name, englishName, number, translationName }: SurahHeaderProps) {
   return (
     <div className="text-center my-10 py-6 border-y border-primary/20 relative">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -16,7 +17,9 @@ export default function SurahHeader({ name, englishName, number }: SurahHeaderPr
         </div>
         <div className="text-4xl font-arabic text-primary mb-3 leading-relaxed">{name}</div>
         <div className="text-xs uppercase tracking-widest text-foreground/40 mb-1">Surah {number}</div>
-        <div className="text-lg font-bold text-foreground">{englishName}</div>
+        <div className="text-lg font-bold text-foreground">
+          {englishName} {translationName ? `(${translationName})` : ''}
+        </div>
       </div>
     </div>
   );

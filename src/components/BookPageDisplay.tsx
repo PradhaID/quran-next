@@ -159,7 +159,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
                       {ayah.surah.name}
                     </span>
                     <span className="block mt-1 text-[10px] uppercase tracking-[0.15em] text-[#a09070] dark:text-[#6a6575]">
-                      {ayah.surah.englishName} ({ayah.surah.translationName || ayah.surah.englishNameTranslation}) — {ayah.surah.number}
+                      {ayah.surah.nameLatin || ayah.surah.englishName} ({ayah.surah.translationName || ayah.surah.englishNameTranslation}) — {ayah.surah.number}
                     </span>
                     {showDecorativeBismillah && (
                       <span className="block mt-6 text-lg sm:text-xl md:text-2xl font-arabic text-primary/60 leading-[2]">

@@ -96,7 +96,8 @@ export default function QuranReader({
     setPinnedId(id);
     const url = `${prefix}/${id}`;
     window.history.replaceState(null, '', url);
-    document.title = `${ayah.surah.englishName} — Ayah ${ayah.numberInSurah} — Quran`;
+    const name = ayah.surah.nameLatin || ayah.surah.englishName;
+    document.title = `${name} — Ayah ${ayah.numberInSurah} — Quran`;
 
     const translation = translationAyahs?.find(
       t => t.surah?.number === ayah.surah?.number && t.numberInSurah === ayah.numberInSurah
@@ -105,7 +106,7 @@ export default function QuranReader({
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
         const text = translation.text.replace(/<[^>]*>/g, '').substring(0, 200);
-        metaDesc.setAttribute('content', `${ayah.surah.englishName} ${ayah.numberInSurah}: ${text}`);
+        metaDesc.setAttribute('content', `${name} ${ayah.numberInSurah}: ${text}`);
       }
     }
   }, [prefix, translationAyahs]);
@@ -116,7 +117,8 @@ export default function QuranReader({
     if (first?.surah) {
       const id = `${first.surah.number}:${first.numberInSurah}`;
       window.history.replaceState(null, '', `${prefix}/${id}`);
-      document.title = `${first.surah.englishName} — Ayah ${first.numberInSurah} — Quran`;
+      const name = first.surah.nameLatin || first.surah.englishName;
+      document.title = `${name} — Ayah ${first.numberInSurah} — Quran`;
     }
   }, [ayahs, prefix]);
 
@@ -157,7 +159,7 @@ export default function QuranReader({
                   href={`${prefix}/${surah.number}:1`}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 text-primary/70 text-xs font-medium hover:bg-primary/10 hover:text-primary transition-colors"
                 >
-                  {surah.number}. {surah.englishName} ({surah.translationName || surah.englishNameTranslation})
+                  {surah.number}. {surah.nameLatin || surah.englishName} ({surah.translationName || surah.englishNameTranslation})
                 </a>
               ))}
             </div>

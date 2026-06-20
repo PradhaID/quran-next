@@ -162,11 +162,7 @@ export default async function Image({
 
   const arabicLines = getArabicLines(targetAyah.text, surahNum, targetAyah.numberInSurah, arabicFontSize);
 
-  const baseName = locale === 'id'
-    ? (surah as any).name_latin || surah.englishName
-    : surah.englishName;
-  const translationName = surah.translationName || surah.englishNameTranslation;
-  const name = `${baseName} (${translationName})`;
+  const name = `${surah.nameLatin || surah.englishName} (${surah.translationName || surah.englishNameTranslation})`;
 
   const hasFonts = amiriData && geistData;
 

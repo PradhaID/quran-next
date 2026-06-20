@@ -28,15 +28,14 @@ export async function generateMetadata({ params }: {
     ? surah.ayahs.find(a => a.numberInSurah === ayahNum)
     : surah.ayahs[0];
 
-  const name = locale === 'id'
-    ? (surah as any).name_latin || surah.englishName
-    : surah.englishName;
+  const name = surah.nameLatin || surah.englishName;
+  const translationName = surah.translationName || surah.englishNameTranslation;
 
-  let title = `${name} — ${surah.number}`;
+  let title = `${name} (${translationName}) — ${surah.number}`;
   let description = `Read Surah ${name} (${surah.number}) with translation and tajweed color coding.`;
 
   if (ayahNum) {
-    title = `${name} — ${surah.number}:${ayahNum}`;
+    title = `${name} (${translationName}) — ${surah.number}:${ayahNum}`;
     description = `Read Ayah ${ayahNum} of Surah ${name} (${surah.number}:${ayahNum}) with translation and tajweed color coding.`;
 
     if (translationData?.ayahs) {

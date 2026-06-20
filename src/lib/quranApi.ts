@@ -8,6 +8,7 @@ export interface SurahInfo {
   numberOfAyahs: number;
   revelationType: string;
   translationName?: string;
+  nameLatin?: string;
 }
 
 export interface AyahData {
@@ -33,6 +34,7 @@ export interface SurahResponse {
   revelationType: string;
   ayahs: AyahData[];
   translationName?: string;
+  nameLatin?: string;
 }
 
 export const TOTAL_PAGES = 604;
@@ -64,6 +66,7 @@ function docToSurahInfo(doc: SurahDoc, locale?: string): SurahInfo {
     englishNameTranslation: doc.englishNameTranslation,
     numberOfAyahs: doc.numberOfAyahs,
     revelationType: doc.revelationType,
+    nameLatin: doc.name_latin,
   };
   if (locale && doc.translations) {
     const lang = locale === 'id' ? 'id' : 'en';
@@ -131,7 +134,7 @@ export async function getPage(pageNumber: number, locale?: string): Promise<Page
   const db = client.db();
   const docs = await db.collection('surahs').find<SurahDoc>(
     {},
-    { projection: { number: 1, name: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, text: 1, pages: 1, juzs: 1, 'translations.en.name': 1, 'translations.id.name': 1 } },
+    { projection: { number: 1, name: 1, name_latin: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, text: 1, pages: 1, juzs: 1, 'translations.en.name': 1, 'translations.id.name': 1 } },
   ).toArray();
 
   const ayahs: AyahData[] = [];
@@ -160,7 +163,7 @@ export async function getPageTranslation(pageNumber: number, locale: string): Pr
   const db = client.db();
   const docs = await db.collection('surahs').find<SurahDoc>(
     {},
-    { projection: { number: 1, name: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, pages: 1, juzs: 1, translations: 1 } },
+    { projection: { number: 1, name: 1, name_latin: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, pages: 1, juzs: 1, translations: 1 } },
   ).toArray();
 
   const lang = locale === 'id' ? 'id' : 'en';
@@ -202,6 +205,7 @@ export interface SurahListItem {
   numberOfAyahs: number;
   revelationType: string;
   translationName?: string;
+  nameLatin?: string;
 }
 
 export async function getAllSurahs(locale?: string): Promise<SurahListItem[]> {
@@ -209,7 +213,7 @@ export async function getAllSurahs(locale?: string): Promise<SurahListItem[]> {
   const db = client.db();
   const docs = await db.collection('surahs').find<SurahDoc>(
     {},
-    { projection: { number: 1, name: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, 'translations.en.name': 1, 'translations.id.name': 1 } },
+    { projection: { number: 1, name: 1, name_latin: 1, englishName: 1, englishNameTranslation: 1, numberOfAyahs: 1, revelationType: 1, 'translations.en.name': 1, 'translations.id.name': 1 } },
   ).sort({ number: 1 }).toArray();
   return docs.map(d => docToSurahInfo(d, locale));
 }

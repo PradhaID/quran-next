@@ -23,8 +23,9 @@ export default function AyahDisplay({ ayahs, translationAyahs, highlightAyah }: 
             {showSurahHeader && ayah.surah && (
               <SurahHeader
                 name={ayah.surah.name}
-                englishName={ayah.surah.englishName}
+                englishName={ayah.surah.nameLatin || ayah.surah.englishName}
                 number={ayah.surah.number}
+                translationName={ayah.surah.translationName || ayah.surah.englishNameTranslation}
               />
             )}
 

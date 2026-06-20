@@ -54,7 +54,7 @@ export default async function HomePage({
       <SiteNav locale={locale} current="home" />
       
       {/* Hero Section — full width */}
-      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
+      <section className="mx-[calc(-50vw+50%)] w-screen mb-8" style={{ aspectRatio: '1200/630', maxHeight: 500 }}>
         <img
           src={locale === 'id' ? '/img/featured-id.avif' : '/img/featured-en.avif'}
           alt=""

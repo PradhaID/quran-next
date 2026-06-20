@@ -29,10 +29,24 @@ export async function generateMetadata({ params }: {
       default: t('title'),
     },
     description: t('description'),
+    icons: [
+      { rel: 'icon', url: '/img/favicon/favicon.ico', sizes: '48x48' },
+      { rel: 'icon', url: '/img/favicon/favicon-96x96.png', sizes: '96x96' },
+      { rel: 'icon', url: '/img/favicon/favicon.svg', type: 'image/svg+xml' },
+      { rel: 'apple-touch-icon', url: '/img/favicon/apple-touch-icon.png' },
+    ],
+    manifest: '/img/favicon/site.webmanifest',
     openGraph: {
       title: { template: `%s | ${t('title')}`, default: t('title') },
       description: t('description'),
       type: 'website',
+      images: [
+        {
+          url: locale === 'id' ? '/img/featured-id.webp' : '/img/featured-en.webp',
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
   };
 }

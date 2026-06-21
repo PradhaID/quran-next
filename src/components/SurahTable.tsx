@@ -4,7 +4,7 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { Link } from '@/i18n/routing';
 
 export interface SurahRow {
-  _id: { toString(): string };
+  _id: string;
   number: number;
   name: string;
   name_latin: string;
@@ -85,7 +85,7 @@ export default function SurahTable({ surahs, locale, revelationLabels }: Props) 
 
             return (
               <tr
-                key={surah._id.toString()}
+                key={surah._id}
                 className="border-t border-[#e0d5c0]/50 dark:border-[#2a2535]/50 hover:bg-primary/[0.02] transition-colors"
               >
                 <td className="py-3 px-4">

@@ -39,7 +39,7 @@ export default async function HomePage({
   // Fetch from MongoDB
   const client = await clientPromise;
   const db = client.db();
-  const surahs = await db.collection('surahs').find<SurahRow>({}, {
+  const surahs = (await db.collection('surahs').find({}, {
     projection: { 
       number: 1, 
       name: 1, 
@@ -48,7 +48,15 @@ export default async function HomePage({
       revelationType: 1,
       translations: 1
     }
-  }).sort({ number: 1 }).toArray();
+  }).sort({ number: 1 }).toArray()).map(d => ({
+    _id: d._id.toString(),
+    number: d.number,
+    name: d.name,
+    name_latin: d.name_latin,
+    number_of_ayah: d.number_of_ayah,
+    revelationType: d.revelationType,
+    translations: d.translations,
+  })) as SurahRow[];
 
   return (
     <main className="flex min-h-screen flex-col items-center px-8 sm:px-12 md:px-24 py-4 sm:py-6 md:py-12 max-w-7xl mx-auto w-full">

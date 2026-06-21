@@ -7,11 +7,28 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0-656, U+659-10FFFF;
+}
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('/fonts/NotoNaskhArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('/fonts/NotoNaskhArabic-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-arabic: hafs, 'KFGQPC Hafs', 'Traditional Arabic', serif;
+  --font-arabic: hafs, 'NotoNaskhArabic', 'Traditional Arabic', serif;
   
   --color-primary: #064E3B; /* Deep Emerald Green */
   --color-primary-light: #10B981;

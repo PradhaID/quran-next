@@ -3,9 +3,8 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { buildOpenGraph, ogImage } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
-import SiteNav from '@/components/SiteNav';
-import LessonPageContent from '@/components/LessonPageContent';
-import type { LessonData } from '@/lib/iqra/types';
+import LessonPageLayout from '@/components/LessonPageLayout';
+import type { LessonData, LessonLevel } from '@/lib/iqra/types';
 import { buildLessons as buildLevel1 } from '@/lib/iqra/iqra1';
 import { buildLessons as buildLevel2 } from '@/lib/iqra/iqra2';
 import { buildLessons as buildLevel3 } from '@/lib/iqra/iqra3';
@@ -30,6 +29,8 @@ const LEVEL_TITLE_KEYS: Record<string, string> = {
   'iqra-5': 'iqra5Title',
   'iqra-6': 'iqra6Title',
 };
+
+const LEVEL_SLUGS = ['iqra-1', 'iqra-2', 'iqra-3', 'iqra-4', 'iqra-5', 'iqra-6'];
 
 export async function generateStaticParams() {
   const out: { level: string; slug: string }[] = [];
@@ -83,20 +84,27 @@ export default async function LessonPage({ params }: {
   const prevLesson = lessonIdx > 0 ? lessons[lessonIdx - 1] : null;
   const levelUrl = `/${locale}/learning/${level}`;
 
+  const levels: LessonLevel[] = LEVEL_SLUGS.map(slug => {
+    const build = LEVEL_BUILDERS[slug];
+    const lessons = build(lang);
+    return {
+      slug,
+      title: t(LEVEL_TITLE_KEYS[slug] as any),
+      lessons: lessons.map(l => ({ id: l.id, title: l.title, number: l.number })),
+    };
+  });
+
   return (
-    <div className="flex min-h-screen flex-col items-center px-4 sm:px-8 md:px-12 py-4 sm:py-6 md:py-12 max-w-7xl mx-auto w-full">
-      <SiteNav locale={locale} current="learning" />
-      <div className="w-full max-w-5xl mt-6">
-        <LessonPageContent
-          lesson={lesson}
-          levelTitle={levelTitle}
-          lang={lang}
-          levelUrl={levelUrl}
-          prevLesson={prevLesson ? { id: prevLesson.id, title: prevLesson.title } : null}
-          nextLesson={nextLesson ? { id: nextLesson.id, title: nextLesson.title } : null}
-          level={level}
-        />
-      </div>
-    </div>
+    <LessonPageLayout
+      locale={locale}
+      levels={levels}
+      currentLevel={level}
+      lesson={lesson}
+      levelTitle={levelTitle}
+      lang={lang}
+      levelUrl={levelUrl}
+      prevLesson={prevLesson ? { id: prevLesson.id, title: prevLesson.title } : null}
+      nextLesson={nextLesson ? { id: nextLesson.id, title: nextLesson.title } : null}
+    />
   );
 }

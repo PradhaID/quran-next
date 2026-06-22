@@ -9,3 +9,9 @@ export interface LessonData {
   title: string;
   pages: [LessonPageContent, LessonPageContent];
 }
+
+export interface LessonLevel {
+  slug: string;
+  title: string;
+  lessons: Pick<LessonData, 'id' | 'title' | 'number'>[];
+}

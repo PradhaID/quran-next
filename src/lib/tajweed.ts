@@ -69,7 +69,7 @@ export function getTajweedColor(text: string): TajweedColor[] {
         colors[i + 1] ??= 'green';
       }
 
-      if (t.base === 'ن' && t.hasTanween && next.base === 'ب') {
+      if (t.hasTanween && next.base === 'ب') {
         colors[i] = 'brown';
         colors[i + 1] ??= 'brown';
       }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { TAJWEED_RULES } from '@/lib/tajweed';
+import { WAQF_SIGNS, WAQF_COLORS } from '@/lib/waqf';
 import type { SurahInfo, SurahListItem, AyahData } from '@/lib/quranApi';
 import { useRouter, usePathname } from '@/i18n/routing';
 
@@ -39,9 +40,11 @@ interface SidebarProps {
   pinnedAyah: AyahData | null;
   pinnedTranslation: AyahData | null;
   onUnpinAyah: () => void;
+  currentSurah?: number;
+  currentAyah?: number;
 }
 
-export default function Sidebar({ search, onSearchChange, open, onOpenChange, surahs, locale, allSurahs, arabicFontScale, onArabicFontScaleChange, pinnedAyah, pinnedTranslation, onUnpinAyah }: SidebarProps) {
+export default function Sidebar({ search, onSearchChange, open, onOpenChange, surahs, locale, allSurahs, arabicFontScale, onArabicFontScaleChange, pinnedAyah, pinnedTranslation, onUnpinAyah, currentSurah, currentAyah }: SidebarProps) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
   const router = useRouter();
   const pathname = usePathname();
@@ -49,6 +52,13 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
 
   const [navSurah, setNavSurah] = useState('');
   const [navAyah, setNavAyah] = useState('');
+
+  useEffect(() => {
+    if (currentSurah && currentAyah) {
+      setNavSurah(String(currentSurah));
+      setNavAyah(String(currentAyah));
+    }
+  }, [currentSurah, currentAyah]);
 
   const selectedSurah = allSurahs.find(s => s.number === Number(navSurah));
   const ayahCount = selectedSurah?.numberOfAyahs ?? 0;
@@ -346,9 +356,39 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
                   className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-foreground/60 hover:text-foreground hover:bg-primary/5 transition-colors"
                 >
                   <span className="font-arabic text-sm">{s.name}</span>
-                  <span className="text-foreground/30 ml-auto">{s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation})</span>
+                  <span className="text-foreground/30 ml-auto">{s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation}) — {t('ayahCount', { count: s.numberOfAyahs })}</span>
                 </a>
               ))}
+            </div>
+          </div>
+
+          {/* Waqf Stop Signs */}
+          <div>
+            <button
+              onClick={() => {
+                const el = document.getElementById('waqf-section');
+                if (el) el.classList.toggle('hidden');
+              }}
+              className="text-[10px] font-semibold text-foreground/40 tracking-wider uppercase block w-full text-left hover:text-foreground/60 transition-colors"
+            >
+              {t('waqfGuide')} ▾
+            </button>
+            <div id="waqf-section" className="hidden mt-3 space-y-3">
+              {WAQF_SIGNS.map(sign => {
+                const key = 'waqf' + sign.color.charAt(5).toUpperCase() + sign.color.slice(6);
+                return (
+                  <div key={sign.codepoint} className="flex items-start gap-2">
+                    <span
+                      className="mt-0.5 w-3 h-3 rounded-full flex-none"
+                      style={{ backgroundColor: WAQF_COLORS[sign.color] }}
+                    />
+                    <div>
+                      <div className="text-xs font-semibold text-foreground/70">{t(key)}</div>
+                      <div className="text-[10px] text-foreground/40 leading-relaxed">{t(key + 'Desc')}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

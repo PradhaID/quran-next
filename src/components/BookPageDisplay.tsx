@@ -1,9 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import type { AyahData } from '@/lib/quranApi';
 import { toColoredSegments } from '@/lib/tajweed';
 import type { TajweedColor } from '@/lib/tajweed';
+import { splitTextAtWaqf, WAQF_COLORS } from '@/lib/waqf';
 import { usePageTurn } from '@/lib/PageTurnContext';
 
 
@@ -44,23 +46,49 @@ const TAJWEED_COLORS: Record<TajweedColor, string> = {
 };
 
 function renderSegmented(text: string) {
-  const segments = toColoredSegments(text);
-  return segments.map((seg, i) =>
-    seg.color
-      ? <span key={i} style={{ color: TAJWEED_COLORS[seg.color] }}>{seg.text}</span>
-      : <span key={i}>{seg.text}</span>
-  );
+  const waqfParts = splitTextAtWaqf(text);
+  const elements: React.ReactNode[] = [];
+  let key = 0;
+
+  for (const part of waqfParts) {
+    if (part.waqf) {
+      elements.push(
+        <span
+          key={key++}
+          className="inline-flex items-center justify-center mx-0.5"
+          style={{ color: WAQF_COLORS[part.waqf.color] }}
+          title={`${part.waqf.name}: ${part.waqf.meaning}`}
+        >
+          {part.text}
+        </span>
+      );
+    } else {
+      const segments = toColoredSegments(part.text);
+      for (const seg of segments) {
+        elements.push(
+          seg.color
+            ? <span key={key++} style={{ color: TAJWEED_COLORS[seg.color] }}>{seg.text}</span>
+            : <span key={key++}>{seg.text}</span>
+        );
+      }
+    }
+  }
+
+  return elements;
 }
 
 export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, locale, prevPageFirst, nextPageFirst, arabicFontScale = 1, pinnedId, onPinAyah, onUnpinAyah }: BookPageDisplayProps) {
+  const t = useTranslations('Sidebar');
   const pinnedRef = useRef(pinnedId);
   pinnedRef.current = pinnedId;
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
   const { navigate } = usePageTurn();
 
-  const handleVerseClick = useCallback((ayah: AyahData) => {
+  const handleVerseClick = useCallback((ayah: AyahData, e: React.MouseEvent) => {
     if (!ayah.surah) return;
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed) return;
     const id = `${ayah.surah.number}:${ayah.numberInSurah}`;
     if (pinnedId === id) {
       onUnpinAyah();
@@ -85,6 +113,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
       if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
 
       e.preventDefault();
+      window.getSelection()?.removeAllRanges();
       const currentId = pinnedRef.current;
       const currentIdx = currentId ? ayahs.findIndex(
         a => a.surah && `${a.surah.number}:${a.numberInSurah}` === currentId
@@ -112,6 +141,8 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (!pinnedId) return;
+      const sel = window.getSelection();
+      if (sel && !sel.isCollapsed) return;
       const target = e.target as HTMLElement;
       const inContent = target.closest('[data-ayah-content]');
       if (!inContent) return;
@@ -159,7 +190,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
                       {ayah.surah.name}
                     </span>
                     <span className="block mt-1 text-[10px] uppercase tracking-[0.15em] text-[#a09070] dark:text-[#6a6575]">
-                      {ayah.surah.nameLatin || ayah.surah.englishName} ({ayah.surah.translationName || ayah.surah.englishNameTranslation}) — {ayah.surah.number}
+                      {ayah.surah.nameLatin || ayah.surah.englishName} ({ayah.surah.translationName || ayah.surah.englishNameTranslation}) — {ayah.surah.number} ({t('ayahCount', { count: ayah.surah.numberOfAyahs })})
                     </span>
                     {showDecorativeBismillah && (
                       <span className="block mt-6 text-lg sm:text-xl md:text-2xl font-arabic text-primary/60 leading-[2]">
@@ -172,9 +203,9 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
                 <span
                   data-ayah={activeId || undefined}
                   className={`cursor-pointer py-1.5 ${isActive ? 'bg-primary/10 rounded-sm' : ''}`}
-                  onClick={() => handleVerseClick(ayah)}
+                  onClick={(e) => handleVerseClick(ayah, e)}
                 >
-                  <span className="text-[#1a1a1a] dark:text-[#e0d8c8] select-all">{renderSegmented(showDecorativeBismillah ? stripBismillah(ayah.text) || ayah.text : ayah.text)}</span>
+                  <span className="text-[#1a1a1a] dark:text-[#e0d8c8]">{renderSegmented(showDecorativeBismillah ? stripBismillah(ayah.text) || ayah.text : ayah.text)}</span>
                   <span className="inline-flex items-center justify-center w-8 h-8 font-arabic text-sm font-bold text-[#8a7a5a] dark:text-[#8a8595] bg-[#e8dcc8]/60 dark:bg-[#3a3545] rounded-full pointer-events-none mx-0.5 align-middle" style={{ fontSize: '0.875rem', lineHeight: 1 }}>
                     {toArabicNumeral(ayah.numberInSurah)}
                   </span>

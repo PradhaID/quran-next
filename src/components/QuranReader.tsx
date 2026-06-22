@@ -42,7 +42,7 @@ export default function QuranReader({
 }: QuranReaderProps) {
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [arabicFontScale, setArabicFontScale] = useState(1);
+  const [arabicFontScale, setArabicFontScale] = useState(1.1);
   const [pinnedId, setPinnedId] = useState<string | null>(null);
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
@@ -181,6 +181,8 @@ export default function QuranReader({
         pinnedAyah={pinnedAyah}
         pinnedTranslation={pinnedTranslation}
         onUnpinAyah={unpinAyah}
+        currentSurah={(pinnedAyah ?? ayahs[0])?.surah?.number}
+        currentAyah={(pinnedAyah ?? ayahs[0])?.numberInSurah}
       />
     </div>
   );

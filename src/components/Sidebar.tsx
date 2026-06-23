@@ -99,7 +99,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
     if (!pinnedId) return;
     const notes = loadNotes();
     if (text.trim()) {
-      notes[pinnedId] = text.trim();
+      notes[pinnedId] = text;
     } else {
       delete notes[pinnedId];
     }

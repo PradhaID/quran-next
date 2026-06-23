@@ -39,4 +39,4 @@ ecosystem.config.js
 deploy.sh
 
 .venv
-.vscode
+.vscodepackage-lock.json

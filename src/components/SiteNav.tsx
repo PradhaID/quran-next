@@ -6,7 +6,7 @@ import { Link, usePathname, useRouter } from '@/i18n/routing';
 
 interface SiteNavProps {
   locale: string;
-  current?: 'home' | 'about' | 'how-to' | 'learning';
+  current?: 'home' | 'about' | 'how-to' | 'learning' | 'contact';
 }
 
 export default function SiteNav({ locale, current }: SiteNavProps) {
@@ -20,6 +20,7 @@ export default function SiteNav({ locale, current }: SiteNavProps) {
     { key: 'learning', href: '/learning', label: t('learning') },
     { key: 'about', href: '/about', label: t('about') },
     { key: 'how-to', href: '/how-to', label: t('howTo') },
+    { key: 'contact', href: '/contact', label: t('contact') },
   ] as const;
 
   const switchLang = (lang: string) => {
@@ -28,7 +29,9 @@ export default function SiteNav({ locale, current }: SiteNavProps) {
   };
 
   return (
-    <nav className="w-full mb-6 bg-[#064E3B] rounded-2xl px-4 md:px-6 h-14 flex items-center justify-between shadow-sm">
+    <>
+      <div className="h-14 md:hidden" />
+      <nav className="w-full mb-0 md:mb-6 bg-[#064E3B] rounded-none md:rounded-2xl px-4 md:px-6 h-14 flex items-center justify-between shadow-sm fixed top-0 left-0 right-0 z-50 md:static">
       {/* Brand */}
       <Link href="/" className="text-white font-bold text-sm md:text-base tracking-tight flex items-center gap-2">
         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -148,5 +151,6 @@ export default function SiteNav({ locale, current }: SiteNavProps) {
         </div>
       )}
     </nav>
+    </>
   );
 }

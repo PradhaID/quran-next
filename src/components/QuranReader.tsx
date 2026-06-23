@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import type { AyahData, SurahListItem } from '@/lib/quranApi';
+import { saveLastRead } from '@/lib/lastRead';
 import BookPageDisplay from './BookPageDisplay';
 import PageNavigation from './PageNavigation';
 import SwipeNavigator from './SwipeNavigator';
@@ -42,7 +43,7 @@ export default function QuranReader({
 }: QuranReaderProps) {
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [arabicFontScale, setArabicFontScale] = useState(1.1);
+  const [arabicFontScale, setArabicFontScale] = useState(1.21);
   const [pinnedId, setPinnedId] = useState<string | null>(null);
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
@@ -53,6 +54,18 @@ export default function QuranReader({
       setPinnedId(`${ayahs[idx].surah!.number}:${ayahs[idx].numberInSurah}`);
     }
   }, [ayahs]);
+
+  useEffect(() => {
+    const first = ayahs[0];
+    if (first?.surah) {
+      saveLastRead({
+        surah: first.surah.number,
+        surahName: first.surah.nameLatin || first.surah.englishName,
+        ayah: first.numberInSurah,
+        page: pageNumber,
+      });
+    }
+  }, [pageNumber, ayahs]);
 
   const filteredAyahs = useMemo(() => {
     if (!search.trim()) return ayahs;
@@ -128,7 +141,7 @@ export default function QuranReader({
   return (
     <div className="flex min-h-screen">
       <SwipeNavigator prevHref={navPrevHref} nextHref={navNextHref}>
-      <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-full md:max-w-3xl mx-auto w-full gap-2 md:gap-2">
+      <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-full md:max-w-3xl mx-auto w-full gap-2 md:gap-2 pb-20 md:pb-2">
         {children}
         <BookPageDisplay
           ayahs={filteredAyahs}
@@ -143,14 +156,16 @@ export default function QuranReader({
           onUnpinAyah={unpinAyah}
         />
 
-        <PageNavigation
-          prevAyah={prevPageFirst ?? null}
-          nextAyah={nextPageFirst ?? null}
-          locale={locale}
-        />
+        <div className="hidden md:block w-full">
+          <PageNavigation
+            prevAyah={prevPageFirst ?? null}
+            nextAyah={nextPageFirst ?? null}
+            locale={locale}
+          />
+        </div>
 
         {filteredAyahs.length > 0 && surahsFromPage.length > 0 && (
-          <div className="w-full max-w-xl text-center mb-16 md:hidden">
+          <div className="w-full max-w-xl text-center md:hidden">
             <p className="text-xs text-foreground/40 mb-3 tracking-wider uppercase">Jump to Surah on this page</p>
             <div className="flex flex-wrap justify-center gap-2">
               {surahsFromPage.map(surah => (
@@ -167,6 +182,44 @@ export default function QuranReader({
         )}
       </div>
       </SwipeNavigator>
+
+      {/* Mobile bottom nav bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-[#faf6ef] dark:bg-[#1a1625] border-t border-[#e0d5c0] dark:border-[#2a2535] px-4 py-2 flex items-center justify-between shadow-lg">
+        {navNextHref ? (
+          <a
+            href={navNextHref}
+            className="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+        ) : (
+          <div className="w-10 h-10" />
+        )}
+
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors -mt-6 border-4 border-[#faf6ef] dark:border-[#1a1625]"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        {navPrevHref ? (
+          <a
+            href={navPrevHref}
+            className="w-10 h-10 rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        ) : (
+          <div className="w-10 h-10" />
+        )}
+      </div>
 
       <Sidebar
         search={search}

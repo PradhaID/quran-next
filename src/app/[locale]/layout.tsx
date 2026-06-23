@@ -80,6 +80,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={inter.variable}>
+      <head>
+        <link rel="preload" href="/fonts/KFGQPC-Hafs.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col font-sans bg-surface text-foreground selection:bg-transparent antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}

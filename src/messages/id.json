@@ -11,13 +11,18 @@
     },
     "ayahs": "{count} Ayat",
     "startReading": "Mulai Membaca",
-    "readByPageDesc": "Baca Al-Quran halaman demi halaman"
+    "continueReading": "Lanjutkan Membaca",
+    "readByPageDesc": "Baca Al-Quran halaman demi halaman",
+    "lastReadSurah": "Surah",
+    "lastReadAyah": "Ayat",
+    "lastReadPage": "Halaman"
   },
   "Navigation": {
     "home": "Beranda",
     "learning": "Belajar",
     "about": "Tentang",
     "howTo": "Cara Menggunakan",
+    "contact": "Kontak",
     "settings": "Pengaturan"
   },
   "PageViewer": {
@@ -101,6 +106,14 @@
     "sidebarFeaturesDesc": "Panel samping (buka dengan mengetuk ikon hamburger di mobile) memberi Anda akses ke: penggantian bahasa, terjemahan ayat, pembuatan catatan, daftar catatan tersimpan, pencarian surah, navigasi surah/ayat, kontrol ukuran huruf Arab, surah di halaman saat ini, dan panduan warna tajwid.",
     "tajweedGuide": "Panduan Tajwid",
     "tajweedGuideDesc": "Klik \"Panduan Tajwid\" di panel samping untuk memperluas legenda warna. Setiap warna mewakili aturan tajwid yang berbeda untuk membantu Anda melafalkan Al-Quran dengan benar."
+  },
+  "ContactPage": {
+    "title": "Kontak",
+    "description": "Hubungi kami untuk pertanyaan, keluhan, atau saran.",
+    "reportIssue": "Laporkan Masalah atau Minta Perubahan",
+    "reportIssueDesc": "Jika Anda menemukan bug, memiliki saran, atau ingin meminta perubahan, silakan hubungi melalui salah satu saluran di bawah ini:",
+    "viewSource": "Lihat Kode Sumber",
+    "viewSourceDesc": "Proyek ini bersifat open source. Anda dapat melihat kode sumber, melaporkan masalah, atau berkontribusi di GitHub:"
   },
   "LearningPage": {
     "title": "Belajar Membaca Al-Quran",

@@ -11,13 +11,18 @@
     },
     "ayahs": "{count} Ayahs",
     "startReading": "Start Reading",
-    "readByPageDesc": "Read the Quran page by page"
+    "continueReading": "Continue Reading",
+    "readByPageDesc": "Read the Quran page by page",
+    "lastReadSurah": "Surah",
+    "lastReadAyah": "Ayah",
+    "lastReadPage": "Page"
   },
   "Navigation": {
     "home": "Home",
     "learning": "Learn",
     "about": "About",
     "howTo": "How to Use",
+    "contact": "Contact",
     "settings": "Settings"
   },
   "PageViewer": {
@@ -101,6 +106,14 @@
     "sidebarFeaturesDesc": "The sidebar (open by tapping the hamburger icon on mobile) gives you access to: language switching, verse translation, note taking, saved notes list, surah search, surah/ayah navigation, Arabic font size controls, surahs on the current page, and a tajweed color guide.",
     "tajweedGuide": "Tajweed Guide",
     "tajweedGuideDesc": "Click \"Tajweed Guide\" in the sidebar to expand the color legend. Each color represents a different tajweed rule to help you pronounce the Quran correctly."
+  },
+  "ContactPage": {
+    "title": "Contact",
+    "description": "Get in touch with us for questions, complaints, or suggestions.",
+    "reportIssue": "Report an Issue or Request a Change",
+    "reportIssueDesc": "If you encounter a bug, have a suggestion, or would like to request a change, please reach out through any of the channels below:",
+    "viewSource": "View Source Code",
+    "viewSourceDesc": "This project is open source. You can view the source code, report issues, or contribute on GitHub:"
   },
   "LearningPage": {
     "title": "Learn to Read the Quran",

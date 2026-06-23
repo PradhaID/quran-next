@@ -49,6 +49,16 @@
   }
 }
 
+:root {
+  --arabic-mobile-adjust: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --arabic-mobile-adjust: 0.8;
+  }
+}
+
 body {
   background-color: var(--color-surface);
   color: var(--color-foreground);

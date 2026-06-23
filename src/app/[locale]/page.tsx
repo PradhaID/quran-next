@@ -1,9 +1,9 @@
 import {getTranslations} from 'next-intl/server';
 import {setRequestLocale} from 'next-intl/server';
 import clientPromise from '@/lib/mongodb';
-import { Link } from '@/i18n/routing';
 import SiteNav from '@/components/SiteNav';
 import SurahTable, { type SurahRow } from '@/components/SurahTable';
+import LastReadCta from '@/components/LastReadCta';
 import { buildOpenGraph, ogImage } from '@/lib/siteUrl';
 import type { Metadata } from 'next';
 
@@ -73,24 +73,14 @@ export default async function HomePage({
 
       {/* Read by Page CTA */}
       <div className="w-full mb-8">
-          <Link
-            href="/1:1"
-            className="group relative block w-full p-6 bg-gradient-to-r from-primary via-primary/90 to-primary/80 rounded-2xl text-white overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-        >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3"></div>
-          <div className="relative z-10 flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold">{t('startReading')}</h3>
-              <p className="text-white/70 text-sm mt-1">{t('readByPageDesc')}</p>
-            </div>
-            <div className="flex items-center gap-2 text-lg font-bold group-hover:translate-x-1 transition-transform">
-              604 Pages
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </div>
-          </div>
-        </Link>
+        <LastReadCta
+          startReadingLabel={t('startReading')}
+          readByPageDesc={t('readByPageDesc')}
+          continueReading={t('continueReading')}
+          lastReadSurah={t('lastReadSurah')}
+          lastReadAyah={t('lastReadAyah')}
+          lastReadPage={t('lastReadPage')}
+        />
       </div>
 
       {/* Search / Header */}

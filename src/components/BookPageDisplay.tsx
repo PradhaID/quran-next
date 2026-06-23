@@ -172,7 +172,7 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
           </div>
         </div>
 
-        <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-2 text-justify font-arabic" dir="rtl" style={{ fontSize: `calc(1.5rem * ${arabicFontScale})`, lineHeight: 2.35 }}>
+        <div className="px-4 sm:px-8 md:px-12 lg:px-16 py-2 text-justify font-arabic" dir="rtl" style={{ fontSize: `calc(1.5rem * ${arabicFontScale} * var(--arabic-mobile-adjust, 1))`, lineHeight: 2.35 }}>
           {ayahs.map((ayah, index) => {
             const showSurahHeader = ayah.surah
               ? ayah.numberInSurah === 1 && (index === 0 || ayahs[index - 1]?.surah?.number !== ayah.surah.number)

@@ -99,6 +99,9 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+
       if (e.key === 'ArrowLeft' && nextPageFirst?.surah) {
         e.preventDefault();
         navigate('next', `${prefix}/${nextPageFirst.surah.number}:${nextPageFirst.numberInSurah}`);

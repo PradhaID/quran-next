@@ -23,6 +23,7 @@ const staticPages = [
   '/about',
   '/how-to',
   '/contact',
+  '/terms',
   '/learning',
 ];
 

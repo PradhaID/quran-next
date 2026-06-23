@@ -41,7 +41,7 @@ export default function LessonPageLayout({
         tocOpen={tocOpen}
         onCloseToc={() => setTocOpen(false)}
       />
-      <div className="flex-1 flex flex-col items-center p-2 sm:p-4 md:p-6 max-w-7xl mx-auto w-full gap-2 md:gap-2">
+      <div className="flex-1 flex flex-col items-center p-4 sm:p-6 md:p-8 max-w-7xl mx-auto w-full gap-2 md:gap-2">
         <SiteNav locale={locale} current="learning" />
         <div className="w-full flex flex-col items-center">
           {/* Mobile TOC toggle */}

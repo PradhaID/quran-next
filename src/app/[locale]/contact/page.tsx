@@ -117,6 +117,15 @@ export default async function ContactPage({
           </div>
         </div>
       </section>
+
+      <footer className="w-full max-w-xl mx-auto mt-16 pt-6 border-t border-black/5 dark:border-white/5 text-center">
+        <a
+          href={`/${locale}/terms`}
+          className="text-xs text-foreground/40 hover:text-primary transition-colors"
+        >
+          {locale === 'id' ? 'Syarat & Ketentuan' : 'Terms & Conditions'}
+        </a>
+      </footer>
     </main>
   );
 }

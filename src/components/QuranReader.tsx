@@ -44,6 +44,17 @@ export default function QuranReader({
   const [search, setSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [arabicFontScale, setArabicFontScale] = useState(1.21);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('quran_font_scale');
+      if (saved) setArabicFontScale(parseFloat(saved));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try { localStorage.setItem('quran_font_scale', String(arabicFontScale)); } catch {}
+  }, [arabicFontScale]);
   const [pinnedId, setPinnedId] = useState<string | null>(null);
 
   const prefix = locale === 'en' ? '' : `/${locale}`;

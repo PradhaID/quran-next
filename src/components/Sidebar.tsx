@@ -42,25 +42,34 @@ interface SidebarProps {
   onUnpinAyah: () => void;
   currentSurah?: number;
   currentAyah?: number;
+  surahAyahRanges?: Map<number, { from: number; to: number }>;
 }
 
-export default function Sidebar({ search, onSearchChange, open, onOpenChange, surahs, locale, allSurahs, arabicFontScale, onArabicFontScaleChange, pinnedAyah, pinnedTranslation, onUnpinAyah, currentSurah, currentAyah }: SidebarProps) {
+export default function Sidebar({ search, onSearchChange, open, onOpenChange, surahs, locale, allSurahs, arabicFontScale, onArabicFontScaleChange, pinnedAyah, pinnedTranslation, onUnpinAyah, currentSurah, currentAyah, surahAyahRanges }: SidebarProps) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations('Sidebar');
 
   const [navSurah, setNavSurah] = useState('');
+  const [navAyah, setNavAyah] = useState('');
 
   useEffect(() => {
     if (currentSurah) {
       setNavSurah(String(currentSurah));
     }
-  }, [currentSurah]);
+    if (currentSurah && currentAyah) {
+      setNavAyah(String(currentAyah));
+    }
+  }, [currentSurah, currentAyah]);
 
-  const goToSurah = (surahNumber: string) => {
-    if (surahNumber) {
-      window.location.href = `${prefix}/${surahNumber}:1`;
+  const selectedSurah = allSurahs.find(s => s.number === Number(navSurah));
+  const ayahCount = selectedSurah?.numberOfAyahs ?? 0;
+  const ayahOptions = Array.from({ length: ayahCount }, (_, i) => i + 1);
+
+  const goToAyah = (surah: string, ayah: string) => {
+    if (surah && ayah) {
+      window.location.href = `${prefix}/${surah}:${ayah}`;
     }
   };
 
@@ -266,18 +275,31 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
             <label className="text-[10px] font-semibold text-foreground/40 tracking-wider uppercase block mb-1.5">
               {t('navigate')}
             </label>
-            <select
-              value={navSurah}
-              onChange={e => { setNavSurah(e.target.value); goToSurah(e.target.value); }}
-              className="w-full px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
-            >
-              <option value="">Surah</option>
-              {allSurahs.map(s => (
-                <option key={s.number} value={s.number}>
-                  {s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation})
-                </option>
-              ))}
-            </select>
+            <div className="flex gap-1.5">
+              <select
+                value={navSurah}
+                onChange={e => { const v = e.target.value; setNavSurah(v); setNavAyah('1'); goToAyah(v, '1'); }}
+                className="flex-1 min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
+              >
+                <option value="">Surah</option>
+                {allSurahs.map(s => (
+                  <option key={s.number} value={s.number}>
+                    {s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation})
+                  </option>
+                ))}
+              </select>
+              <select
+                value={navAyah}
+                onChange={e => { const v = e.target.value; setNavAyah(v); goToAyah(navSurah, v); }}
+                disabled={!navSurah}
+                className="flex-1 min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none disabled:opacity-30"
+              >
+                <option value="">Ayah</option>
+                {ayahOptions.map(n => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Arabic Font Size */}
@@ -310,16 +332,22 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
               {t('surahsOnThisPage')}
             </label>
             <div className="space-y-0.5">
-              {surahs.map(s => (
-                <a
-                  key={s.number}
-                  href={`${prefix}/${s.number}:1`}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-foreground/60 hover:text-foreground hover:bg-primary/5 transition-colors"
-                >
-                  <span className="font-arabic text-sm">{s.name}</span>
-                  <span className="text-foreground/30 ml-auto">{s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation}) — {t('ayahCount', { count: s.numberOfAyahs })}</span>
-                </a>
-              ))}
+              {surahs.map(s => {
+                const range = surahAyahRanges?.get(s.number);
+                const rangeStr = range ? `:${range.from}–${range.to}` : '';
+                return (
+                  <a
+                    key={s.number}
+                    href={`${prefix}/${s.number}:1`}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-foreground/60 hover:text-foreground hover:bg-primary/5 transition-colors"
+                  >
+                    <span className="font-arabic text-sm">{s.name}</span>
+                    <span className="text-foreground/30 ml-auto">
+                      {s.number}. {s.nameLatin || s.englishName} ({s.translationName || s.englishNameTranslation}){rangeStr}
+                    </span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 

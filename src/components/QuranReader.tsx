@@ -102,6 +102,21 @@ export default function QuranReader({
     );
   }, [ayahs]);
 
+  const surahAyahRanges = useMemo(() => {
+    const map = new Map<number, { from: number; to: number }>();
+    for (const a of ayahs) {
+      if (!a.surah) continue;
+      const existing = map.get(a.surah.number);
+      if (existing) {
+        if (a.numberInSurah < existing.from) existing.from = a.numberInSurah;
+        if (a.numberInSurah > existing.to) existing.to = a.numberInSurah;
+      } else {
+        map.set(a.surah.number, { from: a.numberInSurah, to: a.numberInSurah });
+      }
+    }
+    return map;
+  }, [ayahs]);
+
   const pinnedAyah = useMemo(() => {
     if (!pinnedId) return null;
     return ayahs.find(a => a.surah && `${a.surah.number}:${a.numberInSurah}` === pinnedId) ?? null;
@@ -238,6 +253,7 @@ export default function QuranReader({
         open={sidebarOpen}
         onOpenChange={setSidebarOpen}
         surahs={surahsFromPage}
+        surahAyahRanges={surahAyahRanges}
         locale={locale}
         allSurahs={allSurahs}
         arabicFontScale={arabicFontScale}

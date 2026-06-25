@@ -279,7 +279,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
               <select
                 value={navSurah}
                 onChange={e => { const v = e.target.value; setNavSurah(v); setNavAyah('1'); goToAyah(v, '1'); }}
-                className="flex-1 min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
+                className="w-[70%] min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
               >
                 <option value="">Surah</option>
                 {allSurahs.map(s => (
@@ -292,7 +292,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
                 value={navAyah}
                 onChange={e => { const v = e.target.value; setNavAyah(v); goToAyah(navSurah, v); }}
                 disabled={!navSurah}
-                className="flex-1 min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none disabled:opacity-30"
+                className="w-[30%] min-w-0 px-2 py-2 text-xs rounded-lg bg-white/60 dark:bg-white/5 border border-[#d4c9b4] dark:border-[#3a3545] text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none disabled:opacity-30"
               >
                 <option value="">Ayah</option>
                 {ayahOptions.map(n => (
@@ -334,7 +334,7 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
             <div className="space-y-0.5">
               {surahs.map(s => {
                 const range = surahAyahRanges?.get(s.number);
-                const rangeStr = range ? `:${range.from}–${range.to}` : '';
+                const rangeStr = range ? `:${range.from}–${range.to} (${s.numberOfAyahs})` : `(${s.numberOfAyahs})`;
                 return (
                   <a
                     key={s.number}

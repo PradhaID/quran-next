@@ -165,13 +165,21 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
         <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#d4c9b4] dark:border-[#3a3545] rounded-bl-2xl" />
         <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#d4c9b4] dark:border-[#3a3545] rounded-br-2xl" />
 
-        <div className="text-center pt-2 md:pt-5 pb-2 px-2">
-          <div className="inline-flex items-center gap-3">
-            <div className="h-px w-8 bg-[#d4c9b4] dark:bg-[#3a3545]" />
-            <span className="text-xs font-serif italic text-[#a09070] dark:text-[#6a6575] tracking-[0.2em]">
-              {pageNumber.toString().padStart(3, '0')} | {toArabicNumeral(pageNumber)}
-            </span>
-            <div className="h-px w-8 bg-[#d4c9b4] dark:bg-[#3a3545]" />
+        <div className="grid grid-cols-3 items-center pt-2 md:pt-5 pb-2 px-4">
+          <div className={`text-xs font-serif italic text-[#a09070] dark:text-[#6a6575] tracking-[0.2em] ${pageNumber % 2 === 0 ? '' : 'invisible'}`}>
+            {pageNumber % 2 === 0 && (`${t('juz')} ${ayahs[0]?.juz ?? ''}`)}
+          </div>
+          <div className="text-center">
+            <div className="inline-flex items-center gap-3">
+              <div className="h-px w-8 bg-[#d4c9b4] dark:bg-[#3a3545]" />
+              <span className="text-xs font-serif italic text-[#a09070] dark:text-[#6a6575] tracking-[0.2em]">
+                {pageNumber.toString().padStart(3, '0')} | {toArabicNumeral(pageNumber)}
+              </span>
+              <div className="h-px w-8 bg-[#d4c9b4] dark:bg-[#3a3545]" />
+            </div>
+          </div>
+          <div className={`text-xs font-serif italic text-[#a09070] dark:text-[#6a6575] tracking-[0.2em] text-right ${pageNumber % 2 === 0 ? 'invisible' : ''}`}>
+            {pageNumber % 2 !== 0 && (`${t('juz')} ${ayahs[0]?.juz ?? ''}`)}
           </div>
         </div>
 
@@ -200,6 +208,15 @@ export default function BookPageDisplay({ ayahs, translationAyahs, pageNumber, l
                         {renderSegmented(BISMILLAH)}
                       </span>
                     )}
+                  </span>
+                )}
+
+                {index > 0 && ayah.juz !== ayahs[index - 1].juz && (
+                  <span className="block my-6 text-center w-full" dir="ltr">
+                    <span className="text-[10px] font-semibold text-[#a09070] dark:text-[#6a6575] tracking-[0.15em] uppercase">
+                      {t('juz')} {ayah.juz}
+                    </span>
+                    <div className="mt-1 h-px bg-[#d4c9b4] dark:bg-[#3a3545]" />
                   </span>
                 )}
 

@@ -50,6 +50,13 @@ export function getTajweedColor(text: string): TajweedColor[] {
   const tokens = tokenize(text);
   const colors: TajweedColor[] = tokens.map(() => undefined as unknown as TajweedColor);
 
+  function nextNonAlif(i: number): Token | undefined {
+    if (i + 1 >= tokens.length) return undefined;
+    const next = tokens[i + 1];
+    if (next.base === 'ا' && i + 2 < tokens.length) return tokens[i + 2];
+    return next;
+  }
+
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i];
 
@@ -58,41 +65,42 @@ export function getTajweedColor(text: string): TajweedColor[] {
     }
 
     if (i + 1 < tokens.length) {
-      const next = tokens[i + 1];
+      const next = nextNonAlif(i);
+      if (!next) continue;
 
       if (t.hasTanween && IKFA_LETTERS.has(next.base)) {
         colors[i] = 'green';
-        colors[i + 1] ??= 'green';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'green';
       }
       if (t.base === 'ن' && t.hasSukun && IKFA_LETTERS.has(next.base)) {
         colors[i] = 'green';
-        colors[i + 1] ??= 'green';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'green';
       }
 
       if (t.hasTanween && next.base === 'ب') {
         colors[i] = 'brown';
-        colors[i + 1] ??= 'brown';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'brown';
       }
       if (t.base === 'ن' && t.hasSukun && next.base === 'ب') {
         colors[i] = 'brown';
-        colors[i + 1] ??= 'brown';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'brown';
       }
 
       if (t.hasTanween && IDGHAM_BIGHUNNAH.has(next.base) && next.base !== 'ن') {
         colors[i] = 'orange';
-        colors[i + 1] ??= 'orange';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'orange';
       }
       if (t.base === 'ن' && t.hasSukun && IDGHAM_BIGHUNNAH.has(next.base) && next.base !== 'ن') {
         colors[i] = 'orange';
-        colors[i + 1] ??= 'orange';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'orange';
       }
       if (t.hasTanween && IDGHAM_BILA_GHUNNAH.has(next.base)) {
         colors[i] = 'purple';
-        colors[i + 1] ??= 'purple';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'purple';
       }
       if (t.base === 'ن' && t.hasSukun && IDGHAM_BILA_GHUNNAH.has(next.base)) {
         colors[i] = 'purple';
-        colors[i + 1] ??= 'purple';
+        colors[i + (tokens[i + 1]?.base === 'ا' ? 2 : 1)] ??= 'purple';
       }
     }
 

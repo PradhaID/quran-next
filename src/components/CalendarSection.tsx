@@ -30,7 +30,7 @@ interface CalendarSectionProps {
 
 export default function CalendarSection({ locale }: CalendarSectionProps) {
   const t = useTranslations('Sidebar');
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [marks, setMarks] = useState<Record<string, string>>({});
   const [calYear, setCalYear] = useState(0);
   const [calMonth, setCalMonth] = useState(0);

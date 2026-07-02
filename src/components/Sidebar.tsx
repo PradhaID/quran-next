@@ -6,6 +6,7 @@ import { TAJWEED_RULES } from '@/lib/tajweed';
 import { WAQF_SIGNS, WAQF_COLORS } from '@/lib/waqf';
 import type { SurahInfo, SurahListItem, AyahData } from '@/lib/quranApi';
 import { useRouter, usePathname } from '@/i18n/routing';
+import CalendarSection from './CalendarSection';
 
 const BG: Record<string, string> = {
   red: 'bg-[#e74c3c]',
@@ -325,6 +326,9 @@ export default function Sidebar({ search, onSearchChange, open, onOpenChange, su
               </button>
             </div>
           </div>
+
+          {/* Calendar */}
+          <CalendarSection locale={locale} />
 
           {/* Surahs on this page */}
           <div>
